@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,8 @@ namespace WINForms
         public Form1()
         {
             InitializeComponent();
+            Repository repo = new Repository();
+
         }
     }
 }
