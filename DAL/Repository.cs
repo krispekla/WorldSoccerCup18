@@ -1,5 +1,6 @@
 ﻿using DAL.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,63 +13,120 @@ namespace DAL
 {
     public class Repository
     {
-        Task t = new Task(GetTeams);
-        public Repository()
+        private const string urlBase = "https://world-cup-json-2018.herokuapp.com/";
+        private const string urlTeams = urlBase + "teams/results";
+        private const string urlPlayers = urlBase + "matches/country?fifa_code=";
+        private static List<Team> teams = new List<Team>();
+
+        static Repository() { }
+
+        public static bool LanguageIsSet()
         {
-            t.Start();
-            //List<Team> teams = new List<Team>();
+            return FileRepository.CheckLanguage();
         }
 
-        static async void GetTeams()
+        public static void WriteLanguagePreference(string lang)
         {
-            const string urlBase = "https://world-cup-json-2018.herokuapp.com/";
-            const string urlTeams = urlBase + "teams/results";
+            FileRepository.WriteLanguagePreference(lang);
+        }
 
-            // ... Use HttpClient.
+
+        public static async Task<List<Team>> GetTeams()
+        {
+            List<Team> tms = new List<Team>();
+
             using (HttpClient client = new HttpClient())
             using (HttpResponseMessage response = await client.GetAsync(urlTeams))
             using (HttpContent content = response.Content)
             {
-                // ... Read the string.
                 string result = await content.ReadAsStringAsync();
 
-                // ... Display the result.
                 if (result != null)
                 {
-                    List<Team> teams = JsonConvert.DeserializeObject<List<Team>>(result);
-                    WriteToTextFile(teams);
-
-                    List<Team> lista = ReadFromTextFile("proba.txt");
-
+                    tms = JsonConvert.DeserializeObject<List<Team>>(result);
+                    FileRepository.WriteToTextFile(teams);
                 }
             }
+            return tms;
         }
 
-        private static List<Team> ReadFromTextFile(string path)
+        public static string GetFavoriteTeam()
         {
-            List<Team> loadingTeam = new List<Team>();
-            using (TextReader tr = new StreamReader(path))
-            {
-                string line;
-                while ((line = tr.ReadLine()) != null)
-                {
-                    loadingTeam.Add(Team.ParseFromFileLine(line));
-                }
-            }
-            return loadingTeam;
+            return FileRepository.ReadFavoriteTeam();
         }
 
-        private static void WriteToTextFile(List<Team> teams)
+        public static void SaveFavoriteTeam(string favorite)
         {
-            using (TextWriter tw = new StreamWriter("proba.txt"))
-            {
-                foreach (var t in teams)
-                {
-                    tw.WriteLine(t.FormatForWriting());
-                }
-            }
+            FileRepository.WriteFavoriteTeam(favorite);
         }
 
+        public static async Task<List<Player>> GetPlayersByCodeAsync(string code)
+        {
+            List<Player> loadedPlayers = new List<Player>();
+
+            using (HttpClient client = new HttpClient())
+            using (HttpResponseMessage response = await client.GetAsync(urlPlayers + code))
+            using (HttpContent content = response.Content)
+            {
+
+                string result = await content.ReadAsStringAsync();
+
+
+                if (result != null)
+                {
+                    JArray jobj = JArray.Parse(result);
+                    string selectingTeamToParse = jobj[0]["home_team"]["code"].ToString() == code ? "home_team_statistics" : "away_team_statistics";
+
+                    var startingEleven = jobj[0][selectingTeamToParse]["starting_eleven"];
+                    var substitues = jobj[0][selectingTeamToParse]["substitutes"];
+
+                    loadedPlayers = JsonConvert.DeserializeObject<List<Player>>(startingEleven.ToString());
+                    loadedPlayers.AddRange(JsonConvert.DeserializeObject<List<Player>>(substitues.ToString()));
+                }
+            }
+            return SetPlayersImages(loadedPlayers);
+        }
+
+        private static List<Player> SetPlayersImages(List<Player> loadedPlayers)
+        {
+            string[] playerImages = FileRepository.LoadPlayersImages();
+
+            foreach (string item in playerImages)
+            {
+                string current = item.Substring(12, (item.IndexOf('.') - 12));
+                int finded = loadedPlayers.FindIndex(dx => dx.Name.Replace(" ", "") == current);
+                if (finded != -1)
+                {
+                    loadedPlayers[finded].Image = item;
+                }
+            }
+
+            return loadedPlayers;
+        }
+
+        public static void ChangePlayerPicture(string inputPath, string destFileName)
+        {
+            File.Copy(inputPath, destFileName);
+        }
+
+        private static async Task<List<Player>> FetchPlayers(string code)
+        {
+            List<Player> convertPlayers = new List<Player>();
+
+            using (HttpClient client = new HttpClient())
+            using (HttpResponseMessage response = await client.GetAsync(urlPlayers))
+            using (HttpContent content = response.Content)
+            {
+
+                string result = await content.ReadAsStringAsync();
+
+                if (result != null)
+                {
+                    convertPlayers = JsonConvert.DeserializeObject<List<Player>>(result);
+                }
+            }
+            return convertPlayers;
+        }
 
     }
 }

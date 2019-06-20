@@ -20,6 +20,9 @@ namespace DAL.Models
         public string Group_letter { get; set; }
         public int Wins { get; set; }
         public int Draws { get; set; }
+
+        public string TeamName() => $"{Country} {Fifa_code}";
+
         public int Losses { get; set; }
         public int Games_played { get; set; }
         public int Points { get; set; }
@@ -55,5 +58,6 @@ namespace DAL.Models
                 Goal_differential = int.Parse(splittedLines[13])
             };
         }
+
     }
 }
