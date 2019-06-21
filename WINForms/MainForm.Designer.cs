@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.cbFavoriteTeams = new System.Windows.Forms.ComboBox();
             this.lbFavorite = new System.Windows.Forms.Label();
             this.btnSetFavorite = new System.Windows.Forms.Button();
@@ -83,7 +84,7 @@
             // ccPlayerDetails
             // 
             this.ccPlayerDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.ccPlayerDetails.Location = new System.Drawing.Point(446, 74);
+            this.ccPlayerDetails.Location = new System.Drawing.Point(459, 77);
             this.ccPlayerDetails.Margin = new System.Windows.Forms.Padding(2);
             this.ccPlayerDetails.Name = "ccPlayerDetails";
             this.ccPlayerDetails.Size = new System.Drawing.Size(413, 266);
@@ -92,10 +93,10 @@
             // playersControl
             // 
             this.playersControl.BackColor = System.Drawing.Color.Transparent;
-            this.playersControl.Location = new System.Drawing.Point(9, 60);
+            this.playersControl.Location = new System.Drawing.Point(9, 62);
             this.playersControl.Margin = new System.Windows.Forms.Padding(1);
             this.playersControl.Name = "playersControl";
-            this.playersControl.Size = new System.Drawing.Size(452, 280);
+            this.playersControl.Size = new System.Drawing.Size(434, 321);
             this.playersControl.TabIndex = 8;
             // 
             // MainForm
@@ -103,7 +104,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(870, 418);
+            this.ClientSize = new System.Drawing.Size(892, 418);
             this.Controls.Add(this.ccPlayerDetails);
             this.Controls.Add(this.playersControl);
             this.Controls.Add(this.btnSetFavorite);

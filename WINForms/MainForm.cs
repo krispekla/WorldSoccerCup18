@@ -32,6 +32,61 @@ namespace WINForms
             playersControl.ListBoxFavoritesDoubleClick += PlayersControl_ListBoxFavoritesDoubleClick;
             ccPlayerDetails.ComboBoxSelectedPlayerDetailsSelectedValueChanged += CcPlayerDetails_ComboBoxSelectedPlayerDetailsSelectedValueChanged;
             ccPlayerDetails.ButtonDetailsChangePictureClick += CcPlayerDetails_ButtonDetailsChangePictureClick;
+            playersControl.MenuItemResetFavoritesClick += PlayersControl_MenuItemResetFavoritesClick;
+            playersControl.MenuItemToOthersClick += PlayersControl_MenuItemToOthersClick;
+            playersControl.MenuItemToFavoritesClick += PlayersControl_MenuItemToFavoritesClick;
+            playersControl.OthersDoDragMouseDown += PlayersControl_OthersDoDragMouseDown;
+        }
+
+        private void PlayersControl_OthersDoDragMouseDown(object sender, MouseEventArgs e)
+        {
+            //button1.DoDragDrop(button1.Text, DragDropEffects.Copy |
+            //                                 DragDropEffects.Move);
+        }
+
+        private void PlayersControl_MenuItemToFavoritesClick(object sender, EventArgs e)
+        {
+            if (CanBeTransfered())
+            {
+                foreach (String selectedItem in playersControl.lbOtherPlayers.SelectedItems)
+                {
+                    int currInd = currentPlayers.FindIndex(x => x.Name == selectedItem);
+                    currentPlayers[currInd].Favorite = !currentPlayers[currInd].Favorite;
+                }
+                DisplayPlayersListByFavorite();
+            }
+        }
+
+        private bool CanBeTransfered()
+        {
+            int otherCount = playersControl.lbOtherPlayers.SelectedItems.Count;
+            int favCount = playersControl.lbFavoritePlayers.Items.Count;
+            int sum = otherCount + favCount;
+
+            if (sum < -1 || sum > 3) return false;
+            if (sum > 0 && sum <= 3) return true;
+
+            return false;
+        }
+
+        private void PlayersControl_MenuItemToOthersClick(object sender, EventArgs e)
+        {
+            foreach (String selectedItem in playersControl.lbFavoritePlayers.SelectedItems)
+            {
+                int currInd = currentPlayers.FindIndex(x => x.Name == selectedItem);
+                currentPlayers[currInd].Favorite = !currentPlayers[currInd].Favorite;
+            }
+
+            DisplayPlayersListByFavorite();
+        }
+
+        private void PlayersControl_MenuItemResetFavoritesClick(object sender, EventArgs e)
+        {
+            foreach (Player cp in currentPlayers)
+            {
+                cp.Favorite = false;
+            }
+            DisplayPlayersListByFavorite();
         }
 
         private void CcPlayerDetails_ButtonDetailsChangePictureClick(object sender, EventArgs e)
@@ -130,7 +185,6 @@ namespace WINForms
             ToggleFavoriteStatus(true);
 
             DisplayPlayersListByFavorite();
-            playersControl.Refresh();
 
         }
 
@@ -152,7 +206,6 @@ namespace WINForms
             ToggleFavoriteStatus(false);
 
             DisplayPlayersListByFavorite();
-            playersControl.Refresh();
         }
 
 
@@ -220,6 +273,7 @@ namespace WINForms
                 else
                     playersControl.lbOtherPlayers.Items.Add(p.Name);
             }
+            this.Refresh();
         }
 
         private string parseFifaCode(string v)
