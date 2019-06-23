@@ -18,8 +18,6 @@ namespace WINForms.Forms
             InitializeComponent();
             cbLanguage.Items.AddRange(new String[] { "English", "Hrvatski" });
             cbLanguage.SelectedIndex = 0;
-            //    cbLanguage.SelectedIndex = cbLanguage.FindString(lang);
-
         }
 
         private void btnSaveLanguage_Click(object sender, EventArgs e)

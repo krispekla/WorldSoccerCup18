@@ -52,17 +52,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Loader.cs">
+    <Compile Include="Controls\TeamSelect.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\Loader.Designer.cs">
-      <DependentUpon>Loader.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PlayerDetails.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\PlayerDetails.Designer.cs">
-      <DependentUpon>PlayerDetails.cs</DependentUpon>
+    <Compile Include="Controls\TeamSelect.Designer.cs">
+      <DependentUpon>TeamSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Language.cs">
       <SubType>Form</SubType>
@@ -76,28 +70,17 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Players.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Players.Designer.cs">
-      <DependentUpon>Players.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controls\Loader.resx">
-      <DependentUpon>Loader.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\PlayerDetails.resx">
-      <DependentUpon>PlayerDetails.cs</DependentUpon>
+    <Compile Include="Utils\Helper.cs" />
+    <EmbeddedResource Include="Controls\TeamSelect.resx">
+      <DependentUpon>TeamSelect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Language.resx">
       <DependentUpon>Language.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Players.resx">
-      <DependentUpon>Players.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

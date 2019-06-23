@@ -50,15 +50,15 @@ namespace DAL
             return tms;
         }
 
-        public static string GetFavoriteTeam()
-        {
-            return FileRepository.ReadFavoriteTeam();
-        }
+        //public static string GetFavoriteTeam()
+        //{
+        //    return FileRepository.ReadFavoriteTeam();
+        //}
 
-        public static void SaveFavoriteTeam(string favorite)
-        {
-            FileRepository.WriteFavoriteTeam(favorite);
-        }
+        //public static void SaveFavoriteTeam(string favorite)
+        //{
+        //    FileRepository.WriteFavoriteTeam(favorite);
+        //}
 
         public static async Task<List<Player>> GetPlayersByCodeAsync(string code)
         {
@@ -70,7 +70,6 @@ namespace DAL
             {
 
                 string result = await content.ReadAsStringAsync();
-
 
                 if (result != null)
                 {
@@ -84,12 +83,18 @@ namespace DAL
                     loadedPlayers.AddRange(JsonConvert.DeserializeObject<List<Player>>(substitues.ToString()));
                 }
             }
-            return SetPlayersImages(loadedPlayers);
+
+            List<Player> loadedWithFavorites = await LoadFavoritePlayersAsync(code, loadedPlayers);
+
+            return SetPlayersImages(loadedWithFavorites);
         }
 
         private static List<Player> SetPlayersImages(List<Player> loadedPlayers)
         {
+
             string[] playerImages = FileRepository.LoadPlayersImages();
+
+            if (playerImages == null) return loadedPlayers;
 
             foreach (string item in playerImages)
             {
@@ -128,5 +133,27 @@ namespace DAL
             return convertPlayers;
         }
 
+        public static void SaveFavoritePlayers(List<Player> currentPlayers, Team favoriteTeam)
+        {
+            FileRepository.SaveFavoritePlayers(currentPlayers, favoriteTeam);
+        }
+
+        public static async Task<List<Player>> LoadFavoritePlayersAsync(string fifa_code, List<Player> loadedPlayers)
+        {
+            List<Player> favorites;
+
+            favorites = await FileRepository.LoadFavoritePlayers(fifa_code);
+
+            if (favorites.Count == 0) return loadedPlayers;
+
+            loadedPlayers.ForEach(x =>
+            {
+                if (favorites.Find(y => y.Name == x.Name) != null)
+                {
+                    x.Favorite = true;
+                }
+            });
+            return loadedPlayers;
+        }
     }
 }

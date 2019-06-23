@@ -14,6 +14,7 @@ namespace DAL
         private const string fileFavoriteTeamPath = "favoriteTeam.txt";
         private const string fileLanguagePath = "language.txt";
         private const string playersPicturesPath = @"players\img\";
+        private const string favoritePlayersPath = @"players\fav\";
 
 
         static FileRepository() { }
@@ -27,7 +28,7 @@ namespace DAL
             return false;
         }
 
-        public static string ReadFavoriteTeam()
+        public static string GetFavoriteTeam()
         {
             if (!File.Exists(fileFavoriteTeamPath)) return null;
 
@@ -40,7 +41,7 @@ namespace DAL
             return s;
         }
 
-        public static void WriteFavoriteTeam(string favorite)
+        public static void SaveFavoriteTeam(string favorite)
         {
             using (StreamWriter tw = new StreamWriter(fileFavoriteTeamPath))
             {
@@ -92,13 +93,77 @@ namespace DAL
 
         internal static string[] LoadPlayersImages()
         {
+            if (!Directory.Exists(playersPicturesPath))
+                Directory.CreateDirectory(playersPicturesPath);
+
             List<String> loadPaths = new List<string>();
+
+            string[] files = Directory.GetFiles(playersPicturesPath);
+            if (files.Length == 0) return null;
+
             var picFiles = Directory.EnumerateFiles(playersPicturesPath);
             foreach (string curr in picFiles)
             {
                 loadPaths.Add(curr);
             }
             return loadPaths.ToArray();
+        }
+
+        internal static void SaveFavoritePlayers(List<Player> currentPlayers, Team favoriteTeam)
+        {
+
+            if (!Directory.Exists(favoritePlayersPath))
+                Directory.CreateDirectory(favoritePlayersPath);
+
+            string filename = favoritePlayersPath + favoriteTeam.Fifa_code + ".txt";
+
+            if (File.Exists(filename))
+                File.Delete(filename);
+
+            using (StreamWriter tw = new StreamWriter(filename))
+            {
+                foreach (Player t in currentPlayers)
+                {
+                    if (t.Favorite)
+                        tw.WriteLine(t.FormatForWriting());
+                }
+            }
+        }
+
+        internal static async Task<List<Player>> LoadFavoritePlayers(string fifa_code)
+        {
+            if (!Directory.Exists(favoritePlayersPath))
+                Directory.CreateDirectory(favoritePlayersPath);
+
+            List<Player> fav = new List<Player>();
+
+
+            if (!File.Exists($"{favoritePlayersPath}{fifa_code}.txt")) return fav;
+            string[] currentFavTeamPath = Directory.GetFiles(favoritePlayersPath, fifa_code + ".txt");
+
+            if (currentFavTeamPath.Length == 0 || currentFavTeamPath.Length > 1) return fav;
+            if (currentFavTeamPath.Length > 1)
+            {
+                File.Delete(currentFavTeamPath + ".txt");
+            }
+
+
+            using (StreamReader sr = new StreamReader(currentFavTeamPath[0]))
+            {
+
+                string line;
+                while (true)
+                {
+                    line = await sr.ReadLineAsync();
+                    if (line == null) break;
+
+                    fav.Add(Player.ParseFromFileLine(line));
+                }
+
+            }
+
+
+            return fav;
         }
     }
 }

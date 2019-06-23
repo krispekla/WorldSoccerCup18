@@ -28,10 +28,10 @@ namespace DAL.Models
             return new Player
             {
                 Name = splittedLines[0],
-                Captain = bool.Parse(splittedLines[1]),
+                Captain = (splittedLines[1] == "true") ? true : false,
                 Shirt_number = int.Parse(splittedLines[2]),
                 Position = splittedLines[3],
-                Favorite = bool.Parse(splittedLines[4])
+                Favorite = (splittedLines[4] == "true") ? true : false
             };
         }
     }
