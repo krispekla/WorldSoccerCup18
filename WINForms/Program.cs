@@ -1,8 +1,10 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WINForms.Forms;
 
 namespace WINForms
 {
@@ -16,7 +18,10 @@ namespace WINForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            if(!Repository.LanguageIsSet())
+                Application.Run(new Language());
+
+            Application.Run(new MainForm());
         }
     }
 }
