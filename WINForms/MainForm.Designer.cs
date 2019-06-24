@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ucTeamSelect = new WINForms.Controls.TeamSelect();
             this.lbFav = new System.Windows.Forms.Label();
             this.lbPl = new System.Windows.Forms.Label();
             this.lbSelectedTeam = new System.Windows.Forms.Label();
@@ -40,16 +39,10 @@
             this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorkerSaveFavoriteTeam = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorkerGetPlayersByCode = new System.ComponentModel.BackgroundWorker();
+            this.ucTeamSelect = new WINForms.Controls.TeamSelect();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // ucTeamSelect
-            // 
-            this.ucTeamSelect.Location = new System.Drawing.Point(205, 12);
-            this.ucTeamSelect.Name = "ucTeamSelect";
-            this.ucTeamSelect.Size = new System.Drawing.Size(521, 57);
-            this.ucTeamSelect.TabIndex = 1;
             // 
             // lbFav
             // 
@@ -86,10 +79,10 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(53, 106);
+            this.tabControl1.Location = new System.Drawing.Point(12, 106);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(833, 511);
+            this.tabControl1.Size = new System.Drawing.Size(961, 532);
             this.tabControl1.TabIndex = 7;
             // 
             // tabPage1
@@ -103,26 +96,29 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(825, 480);
+            this.tabPage1.Size = new System.Drawing.Size(953, 501);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Players";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // flFavoritePlayers
             // 
-            this.flFavoritePlayers.BackColor = System.Drawing.Color.Transparent;
-            this.flFavoritePlayers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flFavoritePlayers.Location = new System.Drawing.Point(28, 66);
+            this.flFavoritePlayers.AutoScroll = true;
+            this.flFavoritePlayers.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.flFavoritePlayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.flFavoritePlayers.Location = new System.Drawing.Point(6, 66);
             this.flFavoritePlayers.Name = "flFavoritePlayers";
-            this.flFavoritePlayers.Size = new System.Drawing.Size(356, 408);
+            this.flFavoritePlayers.Size = new System.Drawing.Size(425, 408);
             this.flFavoritePlayers.TabIndex = 8;
             // 
             // flAllPlayers
             // 
-            this.flAllPlayers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flAllPlayers.Location = new System.Drawing.Point(445, 66);
+            this.flAllPlayers.AutoScroll = true;
+            this.flAllPlayers.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.flAllPlayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.flAllPlayers.Location = new System.Drawing.Point(467, 66);
             this.flAllPlayers.Name = "flAllPlayers";
-            this.flAllPlayers.Size = new System.Drawing.Size(356, 408);
+            this.flAllPlayers.Size = new System.Drawing.Size(480, 408);
             this.flAllPlayers.TabIndex = 7;
             // 
             // tabPage2
@@ -130,7 +126,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(825, 480);
+            this.tabPage2.Size = new System.Drawing.Size(900, 480);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Rang lists";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -150,12 +146,19 @@
             this.backgroundWorkerGetPlayersByCode.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorkerGetPlayersByCode_DoWork);
             this.backgroundWorkerGetPlayersByCode.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorkerGetPlayersByCode_RunWorkerCompleted);
             // 
+            // ucTeamSelect
+            // 
+            this.ucTeamSelect.Location = new System.Drawing.Point(205, 12);
+            this.ucTeamSelect.Name = "ucTeamSelect";
+            this.ucTeamSelect.Size = new System.Drawing.Size(521, 57);
+            this.ucTeamSelect.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(937, 650);
+            this.ClientSize = new System.Drawing.Size(985, 650);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.ucTeamSelect);
             this.IsMdiContainer = true;

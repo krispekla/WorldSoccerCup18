@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using DAL.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -41,11 +42,11 @@ namespace DAL
             {
                 string result = await content.ReadAsStringAsync();
 
-                if (result != null)
-                {
-                    tms = JsonConvert.DeserializeObject<List<Team>>(result);
-                    FileRepository.WriteToTextFile(teams);
-                }
+                if (String.IsNullOrWhiteSpace(result)) return null;
+
+                tms = JsonConvert.DeserializeObject<List<Team>>(result);
+                FileRepository.WriteToTextFile(teams);
+
             }
             return tms;
         }
@@ -71,17 +72,19 @@ namespace DAL
 
                 string result = await content.ReadAsStringAsync();
 
-                if (result != null)
-                {
-                    JArray jobj = JArray.Parse(result);
-                    string selectingTeamToParse = jobj[0]["home_team"]["code"].ToString() == code ? "home_team_statistics" : "away_team_statistics";
+                if (String.IsNullOrWhiteSpace(result)) return null;
 
-                    var startingEleven = jobj[0][selectingTeamToParse]["starting_eleven"];
-                    var substitues = jobj[0][selectingTeamToParse]["substitutes"];
+                if (!Helper.ValidateJSON(result)) return null;
 
-                    loadedPlayers = JsonConvert.DeserializeObject<List<Player>>(startingEleven.ToString());
-                    loadedPlayers.AddRange(JsonConvert.DeserializeObject<List<Player>>(substitues.ToString()));
-                }
+                JArray jobj = JArray.Parse(result);
+                string selectingTeamToParse = jobj[0]["home_team"]["code"].ToString() == code ? "home_team_statistics" : "away_team_statistics";
+
+                var startingEleven = jobj[0][selectingTeamToParse]["starting_eleven"];
+                var substitues = jobj[0][selectingTeamToParse]["substitutes"];
+
+                loadedPlayers = JsonConvert.DeserializeObject<List<Player>>(startingEleven.ToString());
+                loadedPlayers.AddRange(JsonConvert.DeserializeObject<List<Player>>(substitues.ToString()));
+
             }
 
             List<Player> loadedWithFavorites = await LoadFavoritePlayersAsync(code, loadedPlayers);

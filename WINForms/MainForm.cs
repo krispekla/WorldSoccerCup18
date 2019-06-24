@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WINForms.Controls;
 using WINForms.Forms;
 using WINForms.Utils;
 
@@ -20,7 +21,7 @@ namespace WINForms
         private List<Team> _teams;
         private List<Player> _currentPlayers;
         private Team _favoriteTeam;
-
+        private int _apiCallsCounter = 0;
         public MainForm()
         {
             _teams = new List<Team>();
@@ -37,7 +38,6 @@ namespace WINForms
 
         private void UcTeamSelect_CbTeamsListSelectedValueChanged(object sender, EventArgs e)
         {
-            //favoriteTeam = ucFavoriteTeam.FavTeam;
             UseWaitCursor = true;
             ucTeamSelect.Enabled = false;
             string code = Helper.GetCountryCode((String)(ucTeamSelect.cbTeamsList.SelectedItem));
@@ -61,24 +61,37 @@ namespace WINForms
         private void BackgroundWorkerInit_DoWork(object sender, DoWorkEventArgs e)
         {
             UseWaitCursor = true;
-            _teams = Repository.GetTeams().Result;
+
+            List<Team> tms = Repository.GetTeams().Result;
+            if (tms != null)
+                _teams = tms;
+
             e.Result = FileRepository.GetFavoriteTeam();
+
         }
 
         private void BackgroundWorkerInit_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                UseWaitCursor = false;
                 MessageBox.Show(e.Error.Message);
             }
             else if (e.Cancelled)
             {
-                UseWaitCursor = false;
                 MessageBox.Show("Canceled");
             }
             else
             {
+                if (e.Result == null || _teams == null)
+                {
+                    if (_apiCallsCounter <= 5)
+                        backgroundWorkerInit.RunWorkerAsync();
+
+                    _apiCallsCounter++;
+                    UseWaitCursor = false;
+                    Enabled = true;
+                    return;
+                }
 
                 if (!String.IsNullOrEmpty((String)e.Result))
                 {
@@ -88,10 +101,10 @@ namespace WINForms
                 else
                     ucTeamSelect.LoadTeamsAndFavorite(_teams, null);
 
-
-                UseWaitCursor = false;
-                Enabled = true;
             }
+            _apiCallsCounter = 0;
+            UseWaitCursor = false;
+            Enabled = true;
 
         }
 
@@ -104,19 +117,15 @@ namespace WINForms
         {
             if (e.Error != null)
             {
-                UseWaitCursor = false;
                 MessageBox.Show(e.Error.Message);
             }
             else if (e.Cancelled)
             {
-                UseWaitCursor = false;
                 MessageBox.Show("Canceled");
             }
-            else
-            {
-                UseWaitCursor = false;
-                Enabled = true;
-            }
+
+            UseWaitCursor = false;
+            Enabled = true;
         }
 
         private void BackgroundWorkerGetPlayersByCode_DoWork(object sender, DoWorkEventArgs e)
@@ -136,34 +145,64 @@ namespace WINForms
         {
             if (e.Error != null)
             {
-                UseWaitCursor = false;
                 MessageBox.Show(e.Error.Message);
             }
             else if (e.Cancelled)
             {
-                UseWaitCursor = false;
                 MessageBox.Show("Canceled");
             }
             else
             {
+                if (e.Result == null)
+                {
+                    if (_apiCallsCounter <= 5)
+                    {
+                        string code = Helper.GetCountryCode((String)(ucTeamSelect.cbTeamsList.SelectedItem));
+                        backgroundWorkerGetPlayersByCode.RunWorkerAsync(code);
+                    }
+                    return;
+                }
+
                 _currentPlayers = (List<Player>)e.Result;
+                LoadPlayersIntoControls();
 
-                //Kada se rijese custom kontrole i njihov display, zatim srediti ovaj dio i nakon
-                //toga od UcTeamSelect_CbTeamsListSelectedValueChanged do kraja
-                //ucPlayerDetails.CurrentPlayers = currentPlayers;
-                //ucPlayersList.Players = currentPlayers;
-
-                //ucPlayerDetails.RefreshPlayerDetails();
-                //ucPlayersList.DisplayPlayersList();
-
-
-                //playersControl.lbOtherPlayers.Items.Clear();
-                //playersControl.lbFavoritePlayers.Items.Clear();
-                //DisplayPlayersListByFavorite();
-                //ChangeFavoriteText();
-                ucTeamSelect.Enabled = true;
-                UseWaitCursor = false;
             }
+            _apiCallsCounter = 0;
+            ucTeamSelect.Enabled = true;
+            UseWaitCursor = false;
+        }
+
+        private void LoadPlayersIntoControls()
+        {
+            UseWaitCursor = true;
+            Enabled = false;
+            flAllPlayers.Controls.Clear();
+            flFavoritePlayers.Controls.Clear();
+            List<Control> plList = new List<Control>();
+            foreach (Player p in _currentPlayers)
+            {
+                PlayerDetails pd = new PlayerDetails();
+                pd.ShowPlayerDetails(p);
+                plList.Add(pd);
+            }
+            SortAndDisplayPlayersControls(plList);
+        }
+
+        private void SortAndDisplayPlayersControls(List<Control> plList)
+        {
+            flAllPlayers.Controls.Clear();
+            flFavoritePlayers.Controls.Clear();
+
+            foreach (PlayerDetails p in plList)
+            {
+                if (p.Favorite)
+                    flFavoritePlayers.Controls.Add(p);
+                else
+                    flAllPlayers.Controls.Add(p);
+            }
+            UseWaitCursor = false;
+            Enabled = true;
+            Refresh();
         }
     }
 }

@@ -24,5 +24,6 @@ namespace WINForms.Utils
         {
             return selectedItem.Split().Last();
         }
+
     }
 }
