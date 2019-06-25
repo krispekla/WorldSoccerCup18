@@ -109,7 +109,7 @@ namespace DAL
             return loadPaths.ToArray();
         }
 
-        internal static void SaveFavoritePlayers(List<Player> currentPlayers, Team favoriteTeam)
+        public static void SaveFavoritePlayers(List<Player> currentPlayers, Team favoriteTeam)
         {
 
             if (!Directory.Exists(favoritePlayersPath))

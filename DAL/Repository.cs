@@ -51,16 +51,6 @@ namespace DAL
             return tms;
         }
 
-        //public static string GetFavoriteTeam()
-        //{
-        //    return FileRepository.ReadFavoriteTeam();
-        //}
-
-        //public static void SaveFavoriteTeam(string favorite)
-        //{
-        //    FileRepository.WriteFavoriteTeam(favorite);
-        //}
-
         public static async Task<List<Player>> GetPlayersByCodeAsync(string code)
         {
             List<Player> loadedPlayers = new List<Player>();

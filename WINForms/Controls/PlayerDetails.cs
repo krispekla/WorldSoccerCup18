@@ -14,8 +14,14 @@ namespace WINForms.Controls
     public partial class PlayerDetails : UserControl
     {
         public bool Favorite { get; set; }
+        public bool IsSelected { get; set; }
+        public delegate void PlayerDetailsClickHandler(object sender, MouseEventArgs e);
+        public event PlayerDetailsClickHandler PlayerDetailsClick;
+
+
         public PlayerDetails()
         {
+            IsSelected = false;
             InitializeComponent();
         }
 
@@ -40,5 +46,25 @@ namespace WINForms.Controls
             Refresh();
         }
 
+        public void SetSelected()
+        {
+            if (IsSelected)
+            {
+                BackColor = Color.White;
+                IsSelected = false;
+            }
+            else
+            {
+                BackColor = Color.Aqua;
+                IsSelected = true;
+            }
+            Refresh();
+        }
+
+        private void PlayerDetails_MouseClick(object sender, MouseEventArgs e)
+        {
+            PlayerDetailsClick?.Invoke(sender, e);
+
+        }
     }
 }
