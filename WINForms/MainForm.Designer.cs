@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbFav = new System.Windows.Forms.Label();
             this.lbPl = new System.Windows.Forms.Label();
             this.lbSelectedTeam = new System.Windows.Forms.Label();
@@ -39,16 +40,24 @@
             this.backgroundWorkerInit = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorkerSaveFavoriteTeam = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorkerGetPlayersByCode = new System.ComponentModel.BackgroundWorker();
+            this.cmPlayersAll = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmItemToFavorites = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmPlayersFav = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.moveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ucTeamSelect = new WINForms.Controls.TeamSelect();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.cmPlayersAll.SuspendLayout();
+            this.cmPlayersFav.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbFav
             // 
             this.lbFav.AutoSize = true;
             this.lbFav.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFav.Location = new System.Drawing.Point(145, 31);
+            this.lbFav.Location = new System.Drawing.Point(183, 31);
             this.lbFav.Name = "lbFav";
             this.lbFav.Size = new System.Drawing.Size(109, 17);
             this.lbFav.TabIndex = 4;
@@ -58,7 +67,7 @@
             // 
             this.lbPl.AutoSize = true;
             this.lbPl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPl.Location = new System.Drawing.Point(624, 31);
+            this.lbPl.Location = new System.Drawing.Point(760, 31);
             this.lbPl.Name = "lbPl";
             this.lbPl.Size = new System.Drawing.Size(23, 17);
             this.lbPl.TabIndex = 5;
@@ -82,7 +91,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 106);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(961, 532);
+            this.tabControl1.Size = new System.Drawing.Size(1016, 532);
             this.tabControl1.TabIndex = 7;
             // 
             // tabPage1
@@ -96,7 +105,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(953, 501);
+            this.tabPage1.Size = new System.Drawing.Size(1008, 501);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Players";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -108,7 +117,7 @@
             this.flFavoritePlayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.flFavoritePlayers.Location = new System.Drawing.Point(6, 66);
             this.flFavoritePlayers.Name = "flFavoritePlayers";
-            this.flFavoritePlayers.Size = new System.Drawing.Size(425, 408);
+            this.flFavoritePlayers.Size = new System.Drawing.Size(475, 408);
             this.flFavoritePlayers.TabIndex = 8;
             // 
             // flAllPlayers
@@ -116,9 +125,9 @@
             this.flAllPlayers.AutoScroll = true;
             this.flAllPlayers.BackColor = System.Drawing.Color.WhiteSmoke;
             this.flAllPlayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.flAllPlayers.Location = new System.Drawing.Point(467, 66);
+            this.flAllPlayers.Location = new System.Drawing.Point(514, 66);
             this.flAllPlayers.Name = "flAllPlayers";
-            this.flAllPlayers.Size = new System.Drawing.Size(480, 408);
+            this.flAllPlayers.Size = new System.Drawing.Size(488, 408);
             this.flAllPlayers.TabIndex = 7;
             // 
             // tabPage2
@@ -126,7 +135,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(900, 480);
+            this.tabPage2.Size = new System.Drawing.Size(953, 501);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Rang lists";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -146,9 +155,55 @@
             this.backgroundWorkerGetPlayersByCode.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorkerGetPlayersByCode_DoWork);
             this.backgroundWorkerGetPlayersByCode.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorkerGetPlayersByCode_RunWorkerCompleted);
             // 
+            // cmPlayersAll
+            // 
+            this.cmPlayersAll.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmItemToFavorites,
+            this.removeAllToolStripMenuItem1});
+            this.cmPlayersAll.Name = "cmPlayers";
+            this.cmPlayersAll.Size = new System.Drawing.Size(167, 48);
+            this.cmPlayersAll.Opened += new System.EventHandler(this.CmPlayers_Opened);
+            // 
+            // cmItemToFavorites
+            // 
+            this.cmItemToFavorites.Name = "cmItemToFavorites";
+            this.cmItemToFavorites.Size = new System.Drawing.Size(166, 22);
+            this.cmItemToFavorites.Text = "Move to favorites";
+            this.cmItemToFavorites.Click += new System.EventHandler(this.CmChangeToFavorites_Click);
+            // 
+            // removeAllToolStripMenuItem1
+            // 
+            this.removeAllToolStripMenuItem1.Name = "removeAllToolStripMenuItem1";
+            this.removeAllToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.removeAllToolStripMenuItem1.Text = "Remove All";
+            this.removeAllToolStripMenuItem1.Click += new System.EventHandler(this.RemoveAllFromFavorites);
+            // 
+            // cmPlayersFav
+            // 
+            this.cmPlayersFav.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.moveToolStripMenuItem,
+            this.removeAllToolStripMenuItem});
+            this.cmPlayersFav.Name = "cmPlayersFav";
+            this.cmPlayersFav.Size = new System.Drawing.Size(197, 70);
+            this.cmPlayersFav.Opened += new System.EventHandler(this.CmPlayers_Opened);
+            // 
+            // moveToolStripMenuItem
+            // 
+            this.moveToolStripMenuItem.Name = "moveToolStripMenuItem";
+            this.moveToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.moveToolStripMenuItem.Text = "Remove from Favorites";
+            this.moveToolStripMenuItem.Click += new System.EventHandler(this.CmRemoveFromFavoritesClick);
+            // 
+            // removeAllToolStripMenuItem
+            // 
+            this.removeAllToolStripMenuItem.Name = "removeAllToolStripMenuItem";
+            this.removeAllToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.removeAllToolStripMenuItem.Text = "Remove All";
+            this.removeAllToolStripMenuItem.Click += new System.EventHandler(this.RemoveAllFromFavorites);
+            // 
             // ucTeamSelect
             // 
-            this.ucTeamSelect.Location = new System.Drawing.Point(205, 12);
+            this.ucTeamSelect.Location = new System.Drawing.Point(263, 12);
             this.ucTeamSelect.Name = "ucTeamSelect";
             this.ucTeamSelect.Size = new System.Drawing.Size(521, 57);
             this.ucTeamSelect.TabIndex = 1;
@@ -158,7 +213,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(985, 650);
+            this.ClientSize = new System.Drawing.Size(1040, 650);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.ucTeamSelect);
             this.IsMdiContainer = true;
@@ -168,6 +223,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.cmPlayersAll.ResumeLayout(false);
+            this.cmPlayersFav.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -186,5 +243,11 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerInit;
         private System.ComponentModel.BackgroundWorker backgroundWorkerSaveFavoriteTeam;
         private System.ComponentModel.BackgroundWorker backgroundWorkerGetPlayersByCode;
+        private System.Windows.Forms.ContextMenuStrip cmPlayersAll;
+        private System.Windows.Forms.ToolStripMenuItem cmItemToFavorites;
+        private System.Windows.Forms.ContextMenuStrip cmPlayersFav;
+        private System.Windows.Forms.ToolStripMenuItem removeAllToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem moveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeAllToolStripMenuItem;
     }
 }

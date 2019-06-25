@@ -47,7 +47,7 @@ namespace WINForms.Controls
             BtnSetFavoriteClick?.Invoke(sender, e);
         }
 
-        private void cbTeamsList_SelectedValueChanged(object sender, EventArgs e)
+        private void CbTeamsList_SelectedValueChanged(object sender, EventArgs e)
         {
             CbTeamsListSelectedValueChanged?.Invoke(sender, e);
         }

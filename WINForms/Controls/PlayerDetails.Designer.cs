@@ -33,11 +33,11 @@
             this.lbN = new System.Windows.Forms.Label();
             this.lbSN = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lbP = new System.Windows.Forms.Label();
+            this.lbC = new System.Windows.Forms.Label();
             this.lbCaptain = new System.Windows.Forms.Label();
             this.lbPosition = new System.Windows.Forms.Label();
             this.lbShirtNumber = new System.Windows.Forms.Label();
-            this.lbP = new System.Windows.Forms.Label();
-            this.lbC = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -94,14 +94,15 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.68932F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.31068F));
-            this.tableLayoutPanel1.Controls.Add(this.lbCaptain, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lbPosition, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbShirtNumber, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.lbN, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbSN, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.lbP, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.lbC, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lbCaptain, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lbPosition, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lbShirtNumber, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.lbName, 1, 0);
+            this.tableLayoutPanel1.Cursor = System.Windows.Forms.Cursors.Default;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(122, 23);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
@@ -112,6 +113,30 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(204, 111);
             this.tableLayoutPanel1.TabIndex = 4;
+            // 
+            // lbP
+            // 
+            this.lbP.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lbP.AutoSize = true;
+            this.lbP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbP.Location = new System.Drawing.Point(39, 61);
+            this.lbP.Name = "lbP";
+            this.lbP.Size = new System.Drawing.Size(47, 13);
+            this.lbP.TabIndex = 4;
+            this.lbP.Text = "Position:";
+            this.lbP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbC
+            // 
+            this.lbC.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lbC.AutoSize = true;
+            this.lbC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbC.Location = new System.Drawing.Point(40, 89);
+            this.lbC.Name = "lbC";
+            this.lbC.Size = new System.Drawing.Size(46, 13);
+            this.lbC.TabIndex = 5;
+            this.lbC.Text = "Captain:";
+            this.lbC.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbCaptain
             // 
@@ -149,30 +174,6 @@
             this.lbShirtNumber.Text = "-";
             this.lbShirtNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lbP
-            // 
-            this.lbP.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lbP.AutoSize = true;
-            this.lbP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbP.Location = new System.Drawing.Point(39, 61);
-            this.lbP.Name = "lbP";
-            this.lbP.Size = new System.Drawing.Size(47, 13);
-            this.lbP.TabIndex = 4;
-            this.lbP.Text = "Position:";
-            this.lbP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbC
-            // 
-            this.lbC.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lbC.AutoSize = true;
-            this.lbC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbC.Location = new System.Drawing.Point(40, 89);
-            this.lbC.Name = "lbC";
-            this.lbC.Size = new System.Drawing.Size(46, 13);
-            this.lbC.TabIndex = 5;
-            this.lbC.Text = "Captain:";
-            this.lbC.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // lbName
             // 
             this.lbName.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -191,12 +192,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.btnChangePicture);
             this.Controls.Add(this.pbPicture);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Name = "PlayerDetails";
             this.Padding = new System.Windows.Forms.Padding(50);
             this.Size = new System.Drawing.Size(339, 150);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PlayerDetails_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

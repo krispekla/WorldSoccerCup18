@@ -53,7 +53,7 @@
             this.cbTeamsList.Name = "cbTeamsList";
             this.cbTeamsList.Size = new System.Drawing.Size(167, 21);
             this.cbTeamsList.TabIndex = 1;
-            this.cbTeamsList.SelectedValueChanged += new System.EventHandler(this.cbTeamsList_SelectedValueChanged);
+            this.cbTeamsList.SelectedValueChanged += new System.EventHandler(this.CbTeamsList_SelectedValueChanged);
             // 
             // btnSetFavorite
             // 
