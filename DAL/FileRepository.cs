@@ -161,9 +161,12 @@ namespace DAL
                 }
 
             }
-
-
             return fav;
+        }
+
+        public static void ChangePlayerPicture(string inputPath, string destFileName)
+        {
+            File.Copy(inputPath, destFileName);
         }
     }
 }

@@ -39,9 +39,7 @@ namespace WINForms
             ucTeamSelect.BtnSetFavoriteClick += UcTeamSelect_BtnSetFavoriteClick;
             ucTeamSelect.CbTeamsListSelectedValueChanged += UcTeamSelect_CbTeamsListSelectedValueChanged;
 
-
             backgroundWorkerInit.RunWorkerAsync();
-
         }
 
         private void UcTeamSelect_CbTeamsListSelectedValueChanged(object sender, EventArgs e)
@@ -52,6 +50,7 @@ namespace WINForms
             if (!backgroundWorkerGetPlayersByCode.IsBusy)
                 backgroundWorkerGetPlayersByCode.RunWorkerAsync(code);
             _currentTeam = _teams.Find(xy => xy.Fifa_code == code);
+            lbSelectedTeam.Text = _currentTeam.Country;
         }
         private void UcTeamSelect_BtnSetFavoriteClick(object sender, EventArgs e)
         {
@@ -193,6 +192,33 @@ namespace WINForms
             Enabled = true;
         }
 
+        //Changing pictures
+        private void Pd_PlayerDetailsChangePictureClick(object sender, EventArgs e)
+        {
+            Player pd = (sender as Player);
+            string rootPath = Application.StartupPath;
+            Directory.CreateDirectory(rootPath + @"\players\img\");
+
+            string playerName = @"players\img\" + $"{pd.Name.Replace(" ", "")}.jpg";
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Change picture";
+            saveFileDialog.CheckFileExists = true;
+            saveFileDialog.CheckPathExists = true;
+            saveFileDialog.DefaultExt = "jpeg";
+            saveFileDialog.Filter = "Pictures|*.bmp;*.jpg;*.jpeg;*.png;|All|*.*";
+            saveFileDialog.CreatePrompt = false;
+            saveFileDialog.OverwritePrompt = false;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileRepository.ChangePlayerPicture(saveFileDialog.FileName, playerName);
+                _currentPlayers.Find(v => v.Name == pd.Name).Image = saveFileDialog.FileName;
+
+                LoadPlayersIntoControls();
+            }
+        }
+
         //Selecting favorite players
         private void LoadPlayersIntoControls()
         {
@@ -209,6 +235,7 @@ namespace WINForms
             {
                 PlayerDetails pd = new PlayerDetails();
                 pd.ShowPlayerDetails(p);
+                pd.PlayerDetailsChangePictureClick += Pd_PlayerDetailsChangePictureClick;
                 if (p.Favorite)
                 {
                     _favoritesNum++;

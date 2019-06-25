@@ -15,18 +15,36 @@ namespace WINForms.Controls
     {
         public bool Favorite { get; set; }
         public bool IsSelected { get; set; }
+        public Player Player { get; set; }
+
         public delegate void PlayerDetailsClickHandler(object sender, MouseEventArgs e);
         public event PlayerDetailsClickHandler PlayerDetailsClick;
+
+        public delegate void PlayerDetailsChangePictureClickHandler(object sender, EventArgs e);
+        public event PlayerDetailsChangePictureClickHandler PlayerDetailsChangePictureClick;
 
 
         public PlayerDetails()
         {
+            Player = new Player();
             IsSelected = false;
             InitializeComponent();
         }
 
         public void ShowPlayerDetails(Player player)
         {
+            Player p = new Player()
+            {
+                Name = player.Name,
+                Captain = player.Captain,
+                Shirt_number = player.Shirt_number,
+                Position = player.Position,
+                Favorite = player.Favorite,
+                Image = player.Image
+            };
+
+            Player = p;
+
             lbName.Text = $"{player.Name} {(player.Favorite ? "*" : "")}";
             lbShirtNumber.Text = player.Shirt_number.ToString();
             lbPosition.Text = player.Position;
@@ -65,6 +83,12 @@ namespace WINForms.Controls
         {
             PlayerDetailsClick?.Invoke(sender, e);
 
+        }
+
+        private void BtnChangePicture_Click(object sender, EventArgs e)
+        {
+            
+            PlayerDetailsChangePictureClick?.Invoke(Player, e);
         }
     }
 }

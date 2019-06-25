@@ -102,11 +102,6 @@ namespace DAL
             return loadedPlayers;
         }
 
-        public static void ChangePlayerPicture(string inputPath, string destFileName)
-        {
-            File.Copy(inputPath, destFileName);
-        }
-
         private static async Task<List<Player>> FetchPlayers(string code)
         {
             List<Player> convertPlayers = new List<Player>();
