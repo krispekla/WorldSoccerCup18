@@ -20,6 +20,7 @@ namespace WINForms
     {
         private List<Team> _teams;
         private List<Player> _currentPlayers;
+        private Team _currentTeam;
         private Team _favoriteTeam;
         private int _apiCallsCounter = 0;
         private int _favoritesNum = 0;
@@ -32,6 +33,7 @@ namespace WINForms
             _favoriteTeam = new Team();
             _currentPlayers = new List<Player>();
             _selected = new List<Player>();
+            _currentTeam = new Team();
 
             InitializeComponent();
             ucTeamSelect.BtnSetFavoriteClick += UcTeamSelect_BtnSetFavoriteClick;
@@ -49,12 +51,8 @@ namespace WINForms
             string code = Helper.GetCountryCode((String)(ucTeamSelect.cbTeamsList.SelectedItem));
             if (!backgroundWorkerGetPlayersByCode.IsBusy)
                 backgroundWorkerGetPlayersByCode.RunWorkerAsync(code);
-            //BackgroundWorkerGetPlayersByCode.RunWorkerAsync(code);
-            //ucPlayersList.SelectedTeam = teams[ucFavoriteTeam.cbTeamsList.SelectedIndex];
-            ////ucPlayersList.Players = currentPlayers;
-            //ucPlayersList.DisplayPlayersList();
+            _currentTeam = _teams.Find(xy => xy.Fifa_code == code);
         }
-
         private void UcTeamSelect_BtnSetFavoriteClick(object sender, EventArgs e)
         {
             UseWaitCursor = true;
@@ -76,7 +74,6 @@ namespace WINForms
             e.Result = FileRepository.GetFavoriteTeam();
 
         }
-
         private void BackgroundWorkerInit_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -119,7 +116,6 @@ namespace WINForms
         {
             FileRepository.SaveFavoriteTeam(_favoriteTeam.TeamName());
         }
-
         private void BackgroundWorkerSaveFavoriteTeam_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -147,7 +143,6 @@ namespace WINForms
             e.Result = Repository.GetPlayersByCodeAsync(code).Result;
 
         }
-
         private void BackgroundWorkerGetPlayersByCode_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
@@ -179,7 +174,26 @@ namespace WINForms
             UseWaitCursor = false;
         }
 
-        //
+        private void BackgroundWorkerSaveFavoritePlayers_DoWork(object sender, DoWorkEventArgs e)
+        {
+            FileRepository.SaveFavoritePlayers(_currentPlayers, _currentTeam);
+        }
+        private void BackgroundWorkerSaveFavoritePlayers_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message);
+            }
+            else if (e.Cancelled)
+            {
+                MessageBox.Show("Canceled");
+            }
+
+            UseWaitCursor = false;
+            Enabled = true;
+        }
+
+        //Selecting favorite players
         private void LoadPlayersIntoControls()
         {
             UseWaitCursor = true;
@@ -210,6 +224,22 @@ namespace WINForms
             }
             SortAndDisplayPlayersControls(plList);
         }
+        private void SortAndDisplayPlayersControls(List<Control> plList)
+        {
+            flAllPlayers.Controls.Clear();
+            flFavoritePlayers.Controls.Clear();
+
+            foreach (PlayerDetails p in plList)
+            {
+                if (p.Favorite)
+                    flFavoritePlayers.Controls.Add(p);
+                else
+                    flAllPlayers.Controls.Add(p);
+            }
+            UseWaitCursor = false;
+            Enabled = true;
+            Refresh();
+        }
 
         private void Pd_PlayerDetailsClickFav(object sender, MouseEventArgs e)
         {
@@ -239,7 +269,6 @@ namespace WINForms
                 curr.SetSelected();
             }
         }
-
         private void Pd_PlayerDetailsClickAll(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right || _favoritesNum == 3) return;
@@ -278,7 +307,6 @@ namespace WINForms
             };
             _selected.Add(p);
         }
-
         private void ParseAndRemovePlayer(PlayerDetails curr)
         {
             List<Player> copy = new List<Player>();
@@ -293,22 +321,6 @@ namespace WINForms
             _selected = copy;
         }
 
-        private void SortAndDisplayPlayersControls(List<Control> plList)
-        {
-            flAllPlayers.Controls.Clear();
-            flFavoritePlayers.Controls.Clear();
-
-            foreach (PlayerDetails p in plList)
-            {
-                if (p.Favorite)
-                    flFavoritePlayers.Controls.Add(p);
-                else
-                    flAllPlayers.Controls.Add(p);
-            }
-            UseWaitCursor = false;
-            Enabled = true;
-            Refresh();
-        }
 
         private void CmPlayers_Opened(object sender, EventArgs e)
         {
@@ -325,7 +337,6 @@ namespace WINForms
             if (_selected.Count < 3)
                 _selected.Add(p);
         }
-
         private void CmChangeToFavorites_Click(object sender, EventArgs e)
         {
             if (!CanBeTransfered()) return;
@@ -333,6 +344,32 @@ namespace WINForms
             _selectingFavorite = "";
             UpdatePlayersList();
             LoadPlayersIntoControls();
+            UseWaitCursor = true;
+            backgroundWorkerSaveFavoritePlayers.RunWorkerAsync();
+        }
+        private void CmRemoveFromFavoritesClick(object sender, EventArgs e)
+        {
+            _selectingFavorite = "";
+            UpdatePlayersList();
+            LoadPlayersIntoControls();
+            UseWaitCursor = true;
+            backgroundWorkerSaveFavoritePlayers.RunWorkerAsync();
+        }
+        private void RemoveAllFromFavorites(object sender, EventArgs e)
+        {
+            List<Player> copy = new List<Player>();
+            foreach (Player item in _currentPlayers)
+            {
+                item.Favorite = false;
+                copy.Add(item);
+            }
+            _currentPlayers = copy;
+            _selected.Clear();
+            _favoritesNum = 0;
+            _selectingFavorite = "";
+            LoadPlayersIntoControls();
+            UseWaitCursor = true;
+            backgroundWorkerSaveFavoritePlayers.RunWorkerAsync();
         }
 
         private void UpdatePlayersList()
@@ -359,26 +396,5 @@ namespace WINForms
             return false;
         }
 
-        private void RemoveAllFromFavorites(object sender, EventArgs e)
-        {
-            List<Player> copy = new List<Player>();
-            foreach (Player item in _currentPlayers)
-            {
-                item.Favorite = false;
-                copy.Add(item);
-            }
-            _currentPlayers = copy;
-            _selected.Clear();
-            _favoritesNum = 0;
-            _selectingFavorite = "";
-            LoadPlayersIntoControls();
-        }
-
-        private void CmRemoveFromFavoritesClick(object sender, EventArgs e)
-        {
-            _selectingFavorite = "";
-            UpdatePlayersList();
-            LoadPlayersIntoControls();
-        }
     }
 }

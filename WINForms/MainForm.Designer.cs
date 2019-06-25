@@ -47,6 +47,7 @@
             this.moveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ucTeamSelect = new WINForms.Controls.TeamSelect();
+            this.backgroundWorkerSaveFavoritePlayers = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.cmPlayersAll.SuspendLayout();
@@ -135,7 +136,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(953, 501);
+            this.tabPage2.Size = new System.Drawing.Size(1008, 501);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Rang lists";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -184,7 +185,7 @@
             this.moveToolStripMenuItem,
             this.removeAllToolStripMenuItem});
             this.cmPlayersFav.Name = "cmPlayersFav";
-            this.cmPlayersFav.Size = new System.Drawing.Size(197, 70);
+            this.cmPlayersFav.Size = new System.Drawing.Size(197, 48);
             this.cmPlayersFav.Opened += new System.EventHandler(this.CmPlayers_Opened);
             // 
             // moveToolStripMenuItem
@@ -207,6 +208,11 @@
             this.ucTeamSelect.Name = "ucTeamSelect";
             this.ucTeamSelect.Size = new System.Drawing.Size(521, 57);
             this.ucTeamSelect.TabIndex = 1;
+            // 
+            // backgroundWorkerSaveFavoritePlayers
+            // 
+            this.backgroundWorkerSaveFavoritePlayers.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorkerSaveFavoritePlayers_DoWork);
+            this.backgroundWorkerSaveFavoritePlayers.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorkerSaveFavoritePlayers_RunWorkerCompleted);
             // 
             // MainForm
             // 
@@ -249,5 +255,6 @@
         private System.Windows.Forms.ToolStripMenuItem removeAllToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem moveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAllToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerSaveFavoritePlayers;
     }
 }
