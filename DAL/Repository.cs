@@ -56,7 +56,7 @@ namespace DAL
         {
             _matches.Clear();
             List<Player> loadedPlayers = new List<Player>();
-            JArray jobj;
+            JArray jobj = new JArray();
 
             using (HttpClient client = new HttpClient())
             using (HttpResponseMessage response = await client.GetAsync(urlPlayers + code))
@@ -137,6 +137,38 @@ namespace DAL
             _playersStatistic = plStat;
         }
 
+        public async static Task<List<Match>> GetMatchForSelectedTeam(string code)
+        {
+            List<Match> loaded = new List<Match>();
+            JArray jobj;
+
+            using (HttpClient client = new HttpClient())
+            using (HttpResponseMessage response = await client.GetAsync(urlPlayers + code))
+            using (HttpContent content = response.Content)
+            {
+
+                string result = await content.ReadAsStringAsync();
+
+                if (String.IsNullOrWhiteSpace(result)) return null;
+
+                if (!Helper.ValidateJSON(result)) return null;
+
+                jobj = JArray.Parse(result);
+                for (int i = 0; i < jobj.Count(); i++)
+                {
+                    Match tempBasic = new Match();
+                    List<Player> tempPlayers = new List<Player>();
+                    tempBasic = JsonConvert.DeserializeObject<Match>(jobj[i].ToString());
+                    loaded.Add(tempBasic);
+                    loaded[i].HomeTeamStartingEleven = JsonConvert.DeserializeObject<List<Player>>(jobj[i]["home_team_statistics"]["starting_eleven"].ToString());
+                    loaded[i].AwayTeamStartingEleven = JsonConvert.DeserializeObject<List<Player>>(jobj[i]["away_team_statistics"]["starting_eleven"].ToString());
+                    loaded[i].HomeTeamTactic = jobj[i]["home_team_statistics"]["tactics"].ToString();
+                    loaded[i].AwayTeamTactic = jobj[i]["away_team_statistics"]["tactics"].ToString();
+                }
+                return loaded;
+            }
+        }
+
         public static List<Match> GetMatchesForSelectedTeam()
         {
             return _matches;
@@ -156,7 +188,9 @@ namespace DAL
 
             foreach (string item in playerImages)
             {
-                string current = item.Substring(12, (item.IndexOf('.') - 12));
+                int pos = item.LastIndexOf('\\');
+                int pos2 = item.LastIndexOf('.') - 1;
+                string current = item.Substring(pos + 1, pos2 - pos);
                 int finded = loadedPlayers.FindIndex(dx => dx.Name.Replace(" ", "") == current);
                 if (finded != -1)
                 {
@@ -208,5 +242,7 @@ namespace DAL
             });
             return loadedPlayers;
         }
+
+
     }
 }

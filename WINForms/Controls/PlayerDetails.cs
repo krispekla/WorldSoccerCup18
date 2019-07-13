@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DAL.Models;
+using System.IO;
 
 namespace WINForms.Controls
 {
@@ -16,6 +17,7 @@ namespace WINForms.Controls
         public bool Favorite { get; set; }
         public bool IsSelected { get; set; }
         public Player Player { get; set; }
+        private static string resFolder = "";
 
         public delegate void PlayerDetailsClickHandler(object sender, MouseEventArgs e);
         public event PlayerDetailsClickHandler PlayerDetailsClick;
@@ -26,6 +28,7 @@ namespace WINForms.Controls
 
         public PlayerDetails()
         {
+            resFolder = (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory.ToString()))) + "\\resources\\");
             Player = new Player();
             IsSelected = false;
             InitializeComponent();
@@ -54,7 +57,7 @@ namespace WINForms.Controls
 
             if (String.IsNullOrEmpty(player.Image))
             {
-                string defaultImage = @"players\img\default.jpg";
+                string defaultImage = resFolder + @"players\img\default.jpg";
                 pbPicture.Image = new Bitmap(defaultImage);
             }
             else

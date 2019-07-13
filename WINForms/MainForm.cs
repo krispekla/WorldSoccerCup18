@@ -82,7 +82,6 @@ namespace WINForms
                 _teams = tms;
 
             e.Result = FileRepository.GetFavoriteTeam();
-
         }
         private void BackgroundWorkerInit_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -213,10 +212,12 @@ namespace WINForms
         private void Pd_PlayerDetailsChangePictureClick(object sender, EventArgs e)
         {
             Player pd = (sender as Player);
-            string rootPath = Application.StartupPath;
-            Directory.CreateDirectory(rootPath + @"\players\img\");
+            string resFolder = (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory.ToString()))) + "\\resources\\");
 
-            string playerName = @"players\img\" + $"{pd.Name.Replace(" ", "")}.jpg";
+            string rootPath = Application.StartupPath;
+            Directory.CreateDirectory(resFolder + "players\\img\\");
+
+            string playerName =resFolder +  "players\\img\\" + $"{pd.Name.Replace(" ", "")}.jpg";
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Title = "Change picture";

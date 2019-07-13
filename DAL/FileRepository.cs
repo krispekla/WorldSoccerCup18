@@ -10,18 +10,29 @@ namespace DAL
 {
     public class FileRepository
     {
-        private const string fileTeamPath = "teams.txt";
-        private const string fileFavoriteTeamPath = "favoriteTeam.txt";
-        private const string fileLanguagePath = "language.txt";
-        private const string playersPicturesPath = @"players\img\";
-        private const string favoritePlayersPath = @"players\fav\";
+        private static string resFolder = "";
+        private static string fileTeamPath = "";
+        private static string fileFavoriteTeamPath = "";
+        private static string fileSettingsPath = "";
+        private static string playersPicturesPath = "";
+        private static string favoritePlayersPath = "";
 
 
-        static FileRepository() { }
+        static FileRepository()
+        {
+            resFolder = (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory.ToString()))) + "\\resources\\");
+            if (!Directory.Exists(resFolder))
+                Directory.CreateDirectory(resFolder);
+            fileTeamPath = resFolder + "teams.txt";
+            fileFavoriteTeamPath = resFolder + "favoriteTeam.txt";
+            fileSettingsPath = resFolder + "settings.txt";
+            playersPicturesPath = resFolder + "players\\img\\";
+            favoritePlayersPath = resFolder + "players\\fav\\";
+        }
 
         public static bool CheckLanguage()
         {
-            if (!File.Exists(fileLanguagePath)) return false;
+            if (!File.Exists(fileSettingsPath)) return false;
 
             if (ReadLanguagePreference() == "Hrvatski" || ReadLanguagePreference() == "English") return true;
 
@@ -52,19 +63,37 @@ namespace DAL
 
         public static string ReadLanguagePreference()
         {
-            if (!File.Exists(fileLanguagePath)) return null;
+            if (!File.Exists(fileSettingsPath)) return null;
 
-            return File.ReadAllText(fileLanguagePath);
+            return File.ReadAllText(fileSettingsPath);
         }
 
         public static void WriteLanguagePreference(string lang)
         {
-            using (StreamWriter tw = new StreamWriter(fileLanguagePath))
+            using (StreamWriter tw = new StreamWriter(fileSettingsPath))
             {
                 tw.Write(lang);
             }
         }
 
+        public static Settings ReadWPFSettings()
+        {
+            if (!File.Exists(fileSettingsPath)) return null;
+            string temp = File.ReadAllText(fileSettingsPath);
+
+            if (string.IsNullOrEmpty(temp)) return null;
+
+            Settings loadedSettings = Settings.ParseFromFileLine(temp);
+            return loadedSettings;
+        }
+
+        public static void WriteWPFSettings(Settings stgs)
+        {
+            using (StreamWriter tw = new StreamWriter(fileSettingsPath, false))
+            {
+                tw.Write(stgs.FormatForWriting());
+            }
+        }
 
         public static List<Team> ReadFromTextFile(string path)
         {
@@ -101,12 +130,7 @@ namespace DAL
             string[] files = Directory.GetFiles(playersPicturesPath);
             if (files.Length == 0) return null;
 
-            var picFiles = Directory.EnumerateFiles(playersPicturesPath);
-            foreach (string curr in picFiles)
-            {
-                loadPaths.Add(curr);
-            }
-            return loadPaths.ToArray();
+            return files;
         }
 
         public static void SaveFavoritePlayers(List<Player> currentPlayers, Team favoriteTeam)

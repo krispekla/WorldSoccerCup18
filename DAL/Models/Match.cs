@@ -16,5 +16,9 @@ namespace DAL.Models
         public string Winner { get; set; }
         public string Attendance { get; set; }
 
+        public List<Player> HomeTeamStartingEleven { get; set; }
+        public List<Player> AwayTeamStartingEleven { get; set; }
+        public string HomeTeamTactic { get; set; }
+        public string AwayTeamTactic { get; set; }
     }
 }
