@@ -11,6 +11,25 @@ namespace DAL.Models
     public class Team
     {
         private const char _del = '|';
+        public Team() { }
+
+        public Team(Team t)
+        {
+            Id = t.Id;
+            Country = t.Country;
+            Alternate_name = t.Alternate_name;
+            Fifa_code = t.Fifa_code;
+            Group_id = t.Group_id;
+            Group_letter = t.Group_letter;
+            Wins = t.Wins;
+            Draws = t.Draws;
+            Losses = t.Losses;
+            Games_played = t.Games_played;
+            Points = t.Points;
+            Goals_for = t.Goals_for;
+            Goals_against = t.Goals_against;
+            Goal_differential = t.Goal_differential;
+        }
 
         public int Id { get; set; }
         public string Country { get; set; }

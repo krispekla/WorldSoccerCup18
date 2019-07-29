@@ -13,5 +13,12 @@ namespace WPF
     /// </summary>
     public partial class App : Application
     {
+        private void ApplicationStart(object sender, StartupEventArgs e)
+        {
+            Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+            var startWindow = new SettingsWindow();
+            startWindow.Show();
+        }
     }
 }

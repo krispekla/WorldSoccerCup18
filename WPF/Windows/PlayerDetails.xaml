@@ -1,0 +1,54 @@
+﻿<Window x:Class="WPF.Windows.PlayerDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF.Windows"
+        mc:Ignorable="d"
+        Title="PlayerDetails" Height="470" Width="360" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FFDEDEDE" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <StackPanel  Orientation="Vertical" Height="415" Width="380" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image x:Name="imgPlyer" Height="180" Width="180" Source="../Resources/default.png">
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="30" Opacity="0.2"/>
+                </Image.Effect>
+            </Image>
+
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,6">
+                <Label Content="Name:"/>
+                <Label x:Name="lbName" Content=""/>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,6">
+                <Label Content="Number:" Margin="0,0,0,10"/>
+                <Label x:Name="lbNumber" Content=""/>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,6" >
+                <Label Content="Position:"/>
+                <Label x:Name="lbPosition" Content=""/>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,6" >
+                <Label Content="Captain:"/>
+                <Label x:Name="lbCaptain" Content=""/>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,6" >
+                <Label Content="Goals scored:"/>
+                <Label x:Name="lbGoals" Content=""/>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"  >
+                <Label Content="Yellow card:"/>
+                <Label x:Name="lbYellow" Content=""/>
+            </WrapPanel>
+            <Button Content="Close" Background="Red" Foreground="White" MinWidth="70" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,15,0,0" Click="Button_Click">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="#66858585" Opacity="0.4"/>
+                </Button.Effect>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

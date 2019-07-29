@@ -64,6 +64,7 @@
             this.btnChangePicture.TabIndex = 1;
             this.btnChangePicture.Text = "Change";
             this.btnChangePicture.UseVisualStyleBackColor = true;
+            this.btnChangePicture.Click += new System.EventHandler(this.BtnChangePicture_Click);
             // 
             // lbN
             // 

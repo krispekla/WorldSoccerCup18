@@ -1,0 +1,73 @@
+﻿<Window x:Class="WPF.Windows.TeamDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" FontSize="14"
+        Title="TeamDetails" Height="430" Width="400" WindowStartupLocation="CenterScreen">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard Duration="00:00:5" Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimation From="0" To="1"/>
+                    <ThicknessAnimation Duration="0:0:.8" Storyboard.TargetProperty="Margin" To="-1200,0,-100,0" AccelerationRatio=".1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <StackPanel Height="400" Width="360" Orientation="Vertical">
+            <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,25,20,5">
+                <Label Content="Country:" />
+                <Label x:Name="lbCountryName" Content=""/>
+            </WrapPanel>
+            <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
+                <Label Content="FIFA Code:" />
+                <Label x:Name="lbFIFACode" Content=""/>
+            </WrapPanel>
+
+            <StackPanel Height="100" Orientation="Horizontal">
+
+                <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
+                    <Label Content="Matches played:" />
+                    <Label x:Name="lbMatchesPlayed" Content=""/>
+                </WrapPanel>
+
+                <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
+                    <Label Content="Wins:" />
+                    <Label x:Name="lbWins" Content=""/>
+                </WrapPanel>
+
+                <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
+                    <Label Content="Loses:" />
+                    <Label x:Name="lbLoses" Content=""/>
+                </WrapPanel>
+
+                <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
+                    <Label Content="Draws:" />
+                    <Label x:Name="lbDraws" Content=""/>
+                </WrapPanel>
+            </StackPanel>
+            <WrapPanel Height="100" Margin="20" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
+                    <Label Content="Goals scored:" />
+                    <Label x:Name="lbGoalsScored" Content=""/>
+                </WrapPanel>
+
+                <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
+                    <Label Content="Goals received:" />
+                    <Label x:Name="lbGoalsReceived" Content=""/>
+                </WrapPanel>
+
+                <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5">
+                    <Label Content="Goals differential:" />
+                    <Label x:Name="lbGoalsDifferential" Content=""/>
+                </WrapPanel>
+            </WrapPanel>
+            <Button Content="Close" Width="120" Background="red" Foreground="White" Click="Button_Click" Cursor="Hand"/>
+
+        </StackPanel>
+
+    </Grid>
+</Window>
