@@ -16,9 +16,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF.Windows;
 
 namespace WPF
 {
+
+    //TODO Fix -  Fav and Opponent goalkeeper are same
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -26,22 +29,22 @@ namespace WPF
     {
         static List<Team> _listTeams;
         static List<Team> _listTeamsOpponents;
-        static List<Player> _favoriteListPlayers;
-        static List<Player> _opponentListPlayers;
+        static List<PlayerStatistic> _favoriteListPlayers;
+        static List<PlayerStatistic> _opponentListPlayers;
+        static string _favoriteTactic = "";
+        static string _opponentTactic = "";
         static List<Match> _matchList;
         static Match _currentMatch;
         static Team _favoriteTeam;
-        static int _selectedOpponentIndex;
         public MainWindow(Settings stgs)
         {
             _listTeams = new List<Team>();
             _favoriteTeam = new Team();
             _listTeamsOpponents = new List<Team>();
-            _favoriteListPlayers = new List<Player>();
-            _opponentListPlayers = new List<Player>();
+            _favoriteListPlayers = new List<PlayerStatistic>();
+            _opponentListPlayers = new List<PlayerStatistic>();
             _currentMatch = new Match();
             _matchList = new List<Match>();
-            _selectedOpponentIndex = new int();
             InitializeComponent();
 
             SetWindowSettings(stgs);
@@ -88,9 +91,6 @@ namespace WPF
             _listTeamsOpponents.Clear();
             try
             {
-                //_favoriteListPlayers = await Task.Run(() => Repository.GetPlayersByCodeAsync("GER"));
-                //_matchList = await Task.Run(() => Repository.GetMatchesForSelectedTeam());
-         
                 _matchList = await Task.Run(() => Repository.GetMatchForSelectedTeam(_favoriteTeam.Fifa_code));
             }
             catch (Exception e)
@@ -100,6 +100,120 @@ namespace WPF
             FillOpponentsList();
             cbFavoriteTeam.ItemsSource = _listTeams;
             cbOpponent.ItemsSource = _listTeamsOpponents;
+            cbOpponent.SelectedIndex = 0;
+
+
+            SetPlayersForCurrentMatch();
+            SetGrids();
+        }
+
+        private void SetGrids()
+        {
+            ClearGrids();
+
+
+            CreateGrid(_favoriteTactic, _favoriteListPlayers, true);
+            CreateGrid(_opponentTactic, _opponentListPlayers, false);
+        }
+
+        private void ClearGrids()
+        {
+            gridFavorite.Children.Clear();
+            gridOpponent.Children.Clear();
+            gridFavorite.ColumnDefinitions.Clear();
+            gridOpponent.ColumnDefinitions.Clear();
+        }
+
+        private void CreateGrid(string favoriteTactic, List<PlayerStatistic> plyList, bool favorite)
+        {
+            string[] tmp = favoriteTactic.Split('-');
+            int numberOfColumns = tmp.Length + 1;
+
+
+            int def = int.Parse(tmp[0]);
+            int mid = int.Parse(tmp[1]);
+            int forw = 10 - (def + mid);
+
+            for (int i = 0; i < numberOfColumns; i++)
+            {
+                ColumnDefinition cd = new ColumnDefinition();
+                if (favorite)
+                    gridFavorite.ColumnDefinitions.Add(cd);
+                else
+                    gridOpponent.ColumnDefinitions.Add(cd);
+            }
+            if (!favorite)
+                gridOpponent.ColumnDefinitions.Add(new ColumnDefinition());
+            //Filling goalKeeper
+            if (favorite)
+                gridFavorite.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, 0));
+            else
+                gridOpponent.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, numberOfColumns + 1));
+
+
+            int indexPlayers = 1;
+            for (int i = 0; i < numberOfColumns - 1; i++)
+            {
+                int colIndex = i + 1;
+                if (!favorite)
+                    colIndex = (numberOfColumns - 1) - i;
+
+                StackPanel sp = new StackPanel();
+                sp = FillGridWithPlayerCards(plyList, indexPlayers, indexPlayers + int.Parse(tmp[i]), colIndex);
+                gridFavorite.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, 0));
+                if (favorite)
+                    gridFavorite.Children.Add(sp);
+                else
+                    gridOpponent.Children.Add(sp);
+
+                indexPlayers += int.Parse(tmp[i]);
+            }
+
+        }
+
+        private StackPanel FillGridWithPlayerCards(List<PlayerStatistic> playerList, int from, int to, int collNumber)
+        {
+            StackPanel sp = new StackPanel();
+
+            for (int i = from; i < to; i++)
+            {
+                PlayerGridCard pgc = new PlayerGridCard(playerList[i]);
+                sp.Children.Add(pgc);
+            }
+
+            sp.MinWidth = 100;
+            sp.MinHeight = 100;
+            sp.Orientation = Orientation.Vertical;
+            sp.VerticalAlignment = VerticalAlignment.Center;
+            sp.HorizontalAlignment = HorizontalAlignment.Center;
+            sp.Margin = new Thickness(5);
+
+            Grid.SetColumn(sp, collNumber);
+            return sp;
+        }
+
+        private void SetPlayersForCurrentMatch()
+        {
+            int index = cbOpponent.SelectedIndex;
+            _currentMatch = _matchList[index];
+
+            if (_matchList[index].Home_team_country == _favoriteTeam.Country)
+            {
+                _favoriteListPlayers = _matchList[index].HomeTeamStartingEleven;
+                _opponentListPlayers = _matchList[index].AwayTeamStartingEleven;
+                _favoriteTactic = _matchList[index].HomeTeamTactic;
+                _opponentTactic = _matchList[index].AwayTeamTactic;
+            }
+            else
+            {
+                _favoriteListPlayers = _matchList[index].AwayTeamStartingEleven;
+                _opponentListPlayers = _matchList[index].HomeTeamStartingEleven;
+                _favoriteTactic = _matchList[index].AwayTeamTactic;
+                _opponentTactic = _matchList[index].HomeTeamTactic;
+
+            }
+
+
         }
 
         private void FillOpponentsList()
@@ -110,17 +224,8 @@ namespace WPF
                 string current = m.Home_team_country == _favoriteTeam.Country ? m.Away_team_country : m.Home_team_country;
                 _listTeamsOpponents.Add(_listTeams.Find(x => x.Country == current));
             }
-            if (cbOpponent.SelectedIndex != 0)
-            {
-                cbOpponent.SelectedIndex = 0;
-                _selectedOpponentIndex = 0;
-            }
-            else
-            {
-                string[] temp = cbOpponent.SelectedValue.ToString().Split();
-                _selectedOpponentIndex = _matchList.FindIndex(t => t.Home_team_country.Split()[0] == temp[0]);
-            }
             cbOpponent.Items.Refresh();
+
         }
 
         private void SetWindowSettings(Settings stgs)
@@ -155,8 +260,6 @@ namespace WPF
 
             SetOpponents();
 
-
-            //_currentMatch = await Task.Run(() => Repository.GetMatchForSelectedTeam(_favoriteTeam.Fifa_code, _selectedOpponentIndex));
         }
 
         private void BtnFavoriteTeamInfo_Click(object sender, RoutedEventArgs e)
@@ -181,6 +284,12 @@ namespace WPF
         {
             ExitBox exbox = new ExitBox();
             exbox.ShowDialog();
+        }
+
+        private void CbOpponent_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetPlayersForCurrentMatch();
+            SetGrids();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace DAL
 {
     public class Repository
     {
-        private const string urlBase = "https://world-cup-json-2018.herokuapp.com/";
+        private const string urlBase = "https://worldcup.sfg.io/";
         private const string urlTeams = urlBase + "teams/results";
         private const string urlPlayers = urlBase + "matches/country?fifa_code=";
         private static List<Team> _teams = new List<Team>();
@@ -157,11 +157,11 @@ namespace DAL
                 for (int i = 0; i < jobj.Count(); i++)
                 {
                     Match tempBasic = new Match();
-                    List<Player> tempPlayers = new List<Player>();
+                    List<PlayerStatistic> tempPlayers = new List<PlayerStatistic>();
                     tempBasic = JsonConvert.DeserializeObject<Match>(jobj[i].ToString());
                     loaded.Add(tempBasic);
-                    loaded[i].HomeTeamStartingEleven = JsonConvert.DeserializeObject<List<Player>>(jobj[i]["home_team_statistics"]["starting_eleven"].ToString());
-                    loaded[i].AwayTeamStartingEleven = JsonConvert.DeserializeObject<List<Player>>(jobj[i]["away_team_statistics"]["starting_eleven"].ToString());
+                    loaded[i].HomeTeamStartingEleven = JsonConvert.DeserializeObject<List<PlayerStatistic>>(jobj[i]["home_team_statistics"]["starting_eleven"].ToString());
+                    loaded[i].AwayTeamStartingEleven = JsonConvert.DeserializeObject<List<PlayerStatistic>>(jobj[i]["away_team_statistics"]["starting_eleven"].ToString());
                     loaded[i].HomeTeamTactic = jobj[i]["home_team_statistics"]["tactics"].ToString();
                     loaded[i].AwayTeamTactic = jobj[i]["away_team_statistics"]["tactics"].ToString();
                 }

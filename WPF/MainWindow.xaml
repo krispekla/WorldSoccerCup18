@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:windows="clr-namespace:WPF.Windows"
         mc:Ignorable="d"
         Title="MainWindow" Width="0" Closed="Window_Closed" MinWidth="600" MinHeight="400" WindowStartupLocation="CenterScreen" Height="0">
     <Window.Background>
@@ -13,16 +14,6 @@
             <GradientStop Color="#FFFAFFFA" Offset="0.747"/>
         </LinearGradientBrush>
     </Window.Background>
-    <!--<Window.Triggers>
-        <EventTrigger RoutedEvent="Loaded">
-            <BeginStoryboard>
-                <Storyboard Duration="00:00:5" Storyboard.TargetProperty="Opacity">
-                    <DoubleAnimation From="0" To="1"/>
-                    <ThicknessAnimation Duration="0:0:.8" Storyboard.TargetProperty="Margin" To="-1200,0,-100,0" AccelerationRatio=".1"/>
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-    </Window.Triggers>-->
 
     <Grid>
         <Grid.RowDefinitions>
@@ -30,7 +21,7 @@
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
-        <WrapPanel Grid.Row="0" Height="60"  Background="DarkSeaGreen" Orientation="Horizontal" MaxWidth="600">
+        <WrapPanel x:Name="wrapPanel" Grid.Row="0" Height="60"  Background="DarkSeaGreen" Orientation="Horizontal" MaxWidth="600">
             <StackPanel Orientation="Horizontal" Margin="15,0">
                 <Label Content="Favorite Team:" Height="25"/>
                 <ComboBox x:Name="cbFavoriteTeam" ItemsSource="{Binding  _listTeams}"  Width="120" Height="20" Margin="10, 20" Text="Belgija" Cursor="Hand" SelectionChanged="CbFavoriteTeam_SelectionChanged">
@@ -53,7 +44,7 @@
 
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                 <Label Content="Opponent:" Height="25" />
-                <ComboBox x:Name="cbOpponent" ItemsSource="{Binding  __listTeamsOpponents}" Width="120" Height="20" Margin="10, 20" Text="Belgija" Cursor="Hand">
+                <ComboBox x:Name="cbOpponent" ItemsSource="{Binding  __listTeamsOpponents}" Width="120" Height="20" Margin="10, 20" Text="Belgija" Cursor="Hand" SelectionChanged="CbOpponent_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
@@ -76,10 +67,17 @@
             </StackPanel>
         </WrapPanel>
 
-        <WrapPanel Grid.Row="1" HorizontalAlignment="Stretch" Orientation="Horizontal">
-            <Button>2Buttodd</Button>
+        <UniformGrid x:Name="wpGrids" Grid.Row="1" HorizontalAlignment="Stretch"  MaxWidth="1100" MaxHeight="700">
 
-        </WrapPanel>
+            <UniformGrid.Background>
+                <ImageBrush ImageSource="Resources/field.jpg"/>
+            </UniformGrid.Background>
+            <DockPanel x:Name="dockPanel" Width="{Binding Height, ElementName=wpGrids}" Height="{Binding Width, ElementName=dockPanel}" LastChildFill="False" >
+                <Grid DockPanel.Dock="Left" x:Name="gridFavorite" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Grid  DockPanel.Dock="Right" x:Name="gridOpponent" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+            </DockPanel>
+        </UniformGrid>
 
     </Grid>
 </Window>

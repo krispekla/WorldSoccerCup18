@@ -8,6 +8,10 @@ namespace DAL.Models
 {
     public class PlayerStatistic : Player
     {
+        public PlayerStatistic()
+        {
+        }
+
         public PlayerStatistic(string name, string image, string position)
         {
             Name = name;

@@ -58,16 +58,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ExitBox.xaml.cs">
+    <Compile Include="Windows\ExitBox.xaml.cs">
       <DependentUpon>ExitBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FootballGrid.xaml.cs">
+      <DependentUpon>FootballGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TeamDetails.xaml.cs">
+    <Compile Include="Windows\PlayerDetails.xaml.cs">
+      <DependentUpon>PlayerDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PlayerGridCard.xaml.cs">
+      <DependentUpon>PlayerGridCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TeamDetails.xaml.cs">
       <DependentUpon>TeamDetails.xaml</DependentUpon>
     </Compile>
-    <Page Include="ExitBox.xaml">
+    <Page Include="Windows\ExitBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\FootballGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -87,7 +100,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TeamDetails.xaml">
+    <Page Include="Windows\PlayerDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PlayerGridCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TeamDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,6 +145,12 @@
       <Project>{3eca80a0-a813-4bda-989f-328ddb2d4a69}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\field.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\default.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
