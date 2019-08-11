@@ -14,7 +14,7 @@ namespace DAL
 {
     public class Repository
     {
-        private const string urlBase = "https://worldcup.sfg.io/";
+        private const string urlBase = "https://world-cup-json-2018.herokuapp.com/";
         private const string urlTeams = urlBase + "teams/results";
         private const string urlPlayers = urlBase + "matches/country?fifa_code=";
         private static List<Team> _teams = new List<Team>();

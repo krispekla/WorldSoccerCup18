@@ -91,7 +91,8 @@ namespace WPF
             _listTeamsOpponents.Clear();
             try
             {
-                _matchList = await Task.Run(() => Repository.GetMatchForSelectedTeam(_favoriteTeam.Fifa_code));
+                string code = _favoriteTeam.Fifa_code;
+                _matchList = await Task.Run(() => Repository.GetMatchForSelectedTeam(code));
             }
             catch (Exception e)
             {
@@ -126,6 +127,8 @@ namespace WPF
 
         private void CreateGrid(string favoriteTactic, List<PlayerStatistic> plyList, bool favorite)
         {
+            if (string.IsNullOrEmpty(favoriteTactic)) return;
+
             string[] tmp = favoriteTactic.Split('-');
             int numberOfColumns = tmp.Length + 1;
 
@@ -195,6 +198,8 @@ namespace WPF
         private void SetPlayersForCurrentMatch()
         {
             int index = cbOpponent.SelectedIndex;
+            if (index == -1) return;
+            
             _currentMatch = _matchList[index];
 
             if (_matchList[index].Home_team_country == _favoriteTeam.Country)

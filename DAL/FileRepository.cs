@@ -65,14 +65,32 @@ namespace DAL
         {
             if (!File.Exists(fileSettingsPath)) return null;
 
-            return File.ReadAllText(fileSettingsPath);
+            string settings = File.ReadAllText(fileSettingsPath);
+
+            int newLineIndex = settings.IndexOf("\r\n");
+            if (newLineIndex != -1)
+            {
+                settings = settings.Substring(9, newLineIndex - 9);
+            }
+            else return "";
+
+            return settings;
         }
 
         public static void WriteLanguagePreference(string lang)
         {
+            string settings = File.ReadAllText(fileSettingsPath);
+            int newLineIndex = settings.IndexOf("\r\n");
+            if (newLineIndex != -1)
+            {
+            
+                string temp = settings.Substring(0, 9);
+                settings = temp + lang + settings.Substring(newLineIndex, (settings.Length - newLineIndex));
+            }
+
             using (StreamWriter tw = new StreamWriter(fileSettingsPath))
             {
-                tw.Write(lang);
+                tw.Write(settings);
             }
         }
 
