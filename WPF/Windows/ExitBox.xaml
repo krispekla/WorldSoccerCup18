@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF.Windows"
         mc:Ignorable="d"
-        Title="Close Application" Height="162.463" Width="307.45" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Close Application" Height="162.463" Width="307.45" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" KeyUp="ExitBx_KeyUp">
     <Grid>
         <Label Content="Do you really want to close Application?" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0"/>
 
         <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" Width="200" Height="40" VerticalAlignment="Bottom">
-            <Button Content="Confirm" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,0,20,0" Background="Red" Foreground="White" Click="Button_Click"/>
-            <Button Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Background="#FF0097FF" Foreground="White" Click="Button_Click_1"/>
+            <Button x:Name="btnConfirm" Content="Confirm" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,0,20,0" Background="Red" Foreground="White" Click="ConfirmClick"/>
+            <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Background="#FF0097FF" Foreground="White" Click="CancelClick"/>
         </WrapPanel>
 
     </Grid>

@@ -41,5 +41,13 @@ namespace WPF.Windows
         {
             this.Close();
         }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key==Key.Enter || e.Key == Key.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

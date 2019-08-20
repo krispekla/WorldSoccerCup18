@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" FontSize="14"
-        Title="TeamDetails" Height="430" Width="400" WindowStartupLocation="CenterScreen">
+        Title="TeamDetails" Height="430" Width="400" WindowStartupLocation="CenterScreen" KeyUp="Window_KeyUp">
     <Window.Triggers>
         <EventTrigger RoutedEvent="Loaded">
             <BeginStoryboard>

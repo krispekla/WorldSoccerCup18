@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF.Windows"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="Settings" Height="330" Width="310" WindowStyle="None" MinWidth="310" MinHeight="330" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Settings" Height="330" Width="310" WindowStyle="None" MinWidth="310" MinHeight="330" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" KeyUp="Window_KeyUp">
     <Grid>
 
         <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Height="250" Margin="10,20"  VerticalAlignment="Top">
@@ -32,7 +32,7 @@
 
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal"  VerticalAlignment="Bottom" Margin="5" Width="180">
             <Button x:Name="btnExit" Content="Exit" Margin="10,20" Width="60" Cursor="Hand" Click="BtnExit_Click" Background="Red" Foreground="White"/>
-            <Button x:Name="btnRun" Content="Run" Margin="10,20" Width="60" Cursor="Hand" Click="Button_Click" Background="#FF2CB92C" Foreground="Black"/>
+            <Button x:Name="btnRun" Content="Run" Margin="10,20" Width="60" Cursor="Hand" Click="SaveAndRunClick" Background="#FF2CB92C" Foreground="Black"/>
         </StackPanel>
         <fa:ImageAwesome x:Name="faLoading" Icon="SoccerBallOutline" Spin="True" SpinDuration="4" Margin="72,196,188,84" Foreground="#FF1A7411" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" RenderTransformOrigin="-0.709,1.563" Visibility="Hidden" >
             <fa:ImageAwesome.RenderTransform>

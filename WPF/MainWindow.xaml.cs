@@ -204,6 +204,7 @@ namespace WPF
                     colIndex = (numberOfColumns - 1) - i;
 
                 StackPanel sp = new StackPanel();
+
                 sp = FillGridWithPlayerCards(plyList, indexPlayers, indexPlayers + int.Parse(tmp[i]), colIndex);
                 if (favorite)
                 {
@@ -340,6 +341,21 @@ namespace WPF
         {
             SetPlayersForCurrentMatch();
             SetGrids();
+        }
+
+        private void FaSettings_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var startWindow = new SettingsWindow(false, this);
+            startWindow.Show();
+        }
+
+        private void WinMain_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                ExitBox exbox = new ExitBox();
+                exbox.ShowDialog();
+            }
         }
     }
 }

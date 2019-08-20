@@ -17,7 +17,7 @@ namespace WPF
         {
             Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-            var startWindow = new SettingsWindow();
+            var startWindow = new SettingsWindow(true);
             startWindow.Show();
         }
     }
