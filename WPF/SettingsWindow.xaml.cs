@@ -2,6 +2,7 @@
 using DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -93,6 +94,9 @@ namespace WPF
 
                 if (stgs.Fullscreen)
                     _openedMain.WindowState = WindowState.Maximized;
+                else
+                    _openedMain.WindowState = WindowState.Normal;
+
             }
 
             faLoading.Visibility = Visibility.Hidden;
@@ -130,5 +134,17 @@ namespace WPF
                 BtnExit_Click(sender, e);
             }
         }
+
+        private void CbLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ( cbLanguage.Text == "") return;
+            if ( cbLanguage.Text == "English")
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+            else if (cbLanguage.Text == "Hrvatski")
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("hr-HR");
+
+        }
+
+
     }
 }

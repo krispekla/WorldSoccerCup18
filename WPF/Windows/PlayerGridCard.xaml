@@ -3,22 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:p="clr-namespace:WPF.Properties"
              xmlns:local="clr-namespace:WPF.Windows"
              mc:Ignorable="d" 
-             d:DesignHeight="125" d:DesignWidth="100" FontSize="6" Margin="0,5">
+             d:DesignHeight="135" d:DesignWidth="110" FontSize="7" Margin="5,10" >
     <UserControl.Effect>
         <DropShadowEffect BlurRadius="15" Opacity="0.2" Color="#33000000"/>
     </UserControl.Effect>
     <Grid Background="White" Cursor="Hand" MouseUp="Grid_MouseUp">
-        <StackPanel Orientation="Vertical" Height="125" Width="100" VerticalAlignment="Top">
-            <Image x:Name="imgPlyer" Height="80" Width="80" Source="../Resources/default.png"/>
+        <StackPanel Orientation="Vertical" MinHeight="125" MinWidth="100" MaxWidth="210" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image x:Name="imgPlyer" MinHeight="80" MinWidth="80" MaxWidth="140" Margin="10 0" Source="../Resources/default.png"/>
 
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Content="Name:"/>
+                <Label Content="{x:Static p:Resources.Name}"/>
                 <Label x:Name="lbName" Content=""/>
             </WrapPanel>
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                <Label Content="Number:"/>
+                <Label Content="{x:Static p:Resources.Number}"/>
                 <Label x:Name="lbNumber" Content=""/>
             </WrapPanel>
         </StackPanel>

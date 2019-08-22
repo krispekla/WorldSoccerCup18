@@ -186,14 +186,13 @@ namespace WPF
                 else
                     gridOpponent.ColumnDefinitions.Add(cd);
             }
-            if (!favorite)
-                gridOpponent.ColumnDefinitions.Add(new ColumnDefinition());
+   
 
             //Filling goalKeeper
             if (favorite)
                 gridFavorite.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, 0));
             else
-                gridOpponent.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, numberOfColumns ));
+                gridOpponent.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, numberOfColumns -1));
 
 
             int indexPlayers = 1;
@@ -201,7 +200,7 @@ namespace WPF
             {
                 int colIndex = i + 1;
                 if (!favorite)
-                    colIndex = (numberOfColumns - 1) - i;
+                    colIndex = (numberOfColumns - 2) - i;
 
                 StackPanel sp = new StackPanel();
 
@@ -230,11 +229,11 @@ namespace WPF
                 sp.Children.Add(pgc);
             }
 
-            sp.MinWidth = 100;
-            sp.MinHeight = 100;
+            sp.MinWidth = 80;
+            sp.MinHeight = 80;
             sp.Orientation = Orientation.Vertical;
             sp.VerticalAlignment = VerticalAlignment.Center;
-            sp.HorizontalAlignment = HorizontalAlignment.Center;
+            sp.HorizontalAlignment = HorizontalAlignment.Stretch;
             sp.Margin = new Thickness(5);
 
             Grid.SetColumn(sp, collNumber);
@@ -292,7 +291,7 @@ namespace WPF
         private void SetCulture(string language)
         {
             if (language == "English")
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-GB");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             else if (language == "Hrvatski")
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo("hr-HR");
         }

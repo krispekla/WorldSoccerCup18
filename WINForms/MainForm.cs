@@ -742,6 +742,6 @@ namespace WINForms
             printPreviewDialog.ShowDialog();
         }
 
-      
+
     }
 }

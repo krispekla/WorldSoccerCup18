@@ -118,93 +118,90 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppSetting" xml:space="preserve">
-    <value>Application settings</value>
+    <value>Postavke aplikacije</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Odustani</value>
   </data>
   <data name="Captain" xml:space="preserve">
-    <value>Captain:</value>
+    <value>Kapetan:</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Zatvori</value>
   </data>
   <data name="CloseApplication" xml:space="preserve">
-    <value>Close Application</value>
+    <value>Zatvori aplikaciju</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Potvrdi</value>
   </data>
   <data name="Country" xml:space="preserve">
-    <value>Country:</value>
+    <value>Država:</value>
   </data>
   <data name="DoYouQantToClose" xml:space="preserve">
-    <value>Do you really want to close Application?</value>
+    <value>Želiš li stvarno zatvoriti aplikaciju?</value>
   </data>
   <data name="Exit" xml:space="preserve">
-    <value>Exit</value>
+    <value>Zatvori</value>
   </data>
   <data name="FavoriteTeam" xml:space="preserve">
-    <value>Favorite Team</value>
+    <value>Omiljeni tim</value>
   </data>
   <data name="FIFACode" xml:space="preserve">
-    <value>FIFA code:</value>
+    <value>FIFA kod:</value>
   </data>
   <data name="Fullscreen" xml:space="preserve">
     <value>Full screen</value>
   </data>
   <data name="GoalsDifferential" xml:space="preserve">
-    <value>Goals differential:</value>
+    <value>Gol razlika:</value>
   </data>
   <data name="GoalsReceived" xml:space="preserve">
-    <value>Goals received:</value>
+    <value>Golova primljenih:</value>
   </data>
   <data name="GoalsScored" xml:space="preserve">
-    <value>Goals scored:</value>
+    <value>Golova zabijenih:</value>
   </data>
   <data name="Height" xml:space="preserve">
-    <value>Height</value>
+    <value>Visina</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Jezik</value>
   </data>
   <data name="Loses" xml:space="preserve">
-    <value>Loses:</value>
+    <value>Poraza:</value>
   </data>
   <data name="MatchesPlayed" xml:space="preserve">
-    <value>Matches played:</value>
+    <value>Utakmica odigranih:</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name:</value>
+    <value>Ime:</value>
   </data>
   <data name="Number" xml:space="preserve">
-    <value>Number:</value>
+    <value>Broj:</value>
   </data>
   <data name="Opponent" xml:space="preserve">
-    <value>Opponent</value>
+    <value>Protivnik</value>
   </data>
   <data name="PlayerDetails" xml:space="preserve">
-    <value>Player details</value>
+    <value>Detalji igrača</value>
   </data>
   <data name="Position" xml:space="preserve">
-    <value>Position:</value>
+    <value>Pozicija:</value>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Save</value>
+    <value>Spremi</value>
   </data>
   <data name="Width" xml:space="preserve">
-    <value>Width</value>
+    <value>Visina</value>
   </data>
   <data name="Wins" xml:space="preserve">
-    <value>Wins:</value>
+    <value>Pobjeda:</value>
   </data>
   <data name="YellowCard" xml:space="preserve">
-    <value>Yellow cards:</value>
-  </data>
-  <data name="TeamDetails" xml:space="preserve">
-    <value />
+    <value>Žutih kartona:</value>
   </data>
   <data name="Draws" xml:space="preserve">
-    <value>Draws:</value>
+    <value>Neriješeno:</value>
   </data>
 </root>

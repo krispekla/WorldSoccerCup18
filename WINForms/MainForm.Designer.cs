@@ -55,10 +55,10 @@
             this.backgroundWorkerSaveFavoritePlayers = new System.ComponentModel.BackgroundWorker();
             this.bindSourcePlayers = new System.Windows.Forms.BindingSource(this.components);
             this.bindSourceMatches = new System.Windows.Forms.BindingSource(this.components);
-            this.ucTeamSelect = new WINForms.Controls.TeamSelect();
             this.printDocumentPlayers = new System.Drawing.Printing.PrintDocument();
             this.printDocumentMatches = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog = new System.Windows.Forms.PrintPreviewDialog();
+            this.ucTeamSelect = new WINForms.Controls.TeamSelect();
             this.tb.SuspendLayout();
             this.tbPlayers.SuspendLayout();
             this.tbRang.SuspendLayout();
@@ -303,14 +303,6 @@
             this.backgroundWorkerSaveFavoritePlayers.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorkerSaveFavoritePlayers_DoWork);
             this.backgroundWorkerSaveFavoritePlayers.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorkerSaveFavoritePlayers_RunWorkerCompleted);
             // 
-            // ucTeamSelect
-            // 
-            this.ucTeamSelect.Location = new System.Drawing.Point(405, 32);
-            this.ucTeamSelect.Margin = new System.Windows.Forms.Padding(6);
-            this.ucTeamSelect.Name = "ucTeamSelect";
-            this.ucTeamSelect.Size = new System.Drawing.Size(513, 55);
-            this.ucTeamSelect.TabIndex = 1;
-            // 
             // printDocumentPlayers
             // 
             this.printDocumentPlayers.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.PrintDocumentPlayers_BeginPrint);
@@ -326,6 +318,14 @@
             this.printPreviewDialog.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog.Icon")));
             this.printPreviewDialog.Name = "printPreviewDialog";
             this.printPreviewDialog.Visible = false;
+            // 
+            // ucTeamSelect
+            // 
+            this.ucTeamSelect.Location = new System.Drawing.Point(405, 32);
+            this.ucTeamSelect.Margin = new System.Windows.Forms.Padding(6);
+            this.ucTeamSelect.Name = "ucTeamSelect";
+            this.ucTeamSelect.Size = new System.Drawing.Size(513, 55);
+            this.ucTeamSelect.TabIndex = 1;
             // 
             // MainForm
             // 
