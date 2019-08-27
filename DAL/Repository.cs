@@ -200,6 +200,28 @@ namespace DAL
             return loadedPlayers;
         }
 
+        public static List<PlayerStatistic> SetPlayersImages(List<PlayerStatistic> loadedPlayers)
+        {
+
+            string[] playerImages = FileRepository.LoadPlayersImages();
+
+            if (playerImages == null) return loadedPlayers;
+
+            foreach (string item in playerImages)
+            {
+                int pos = item.LastIndexOf('\\');
+                int pos2 = item.LastIndexOf('.') - 1;
+                string current = item.Substring(pos + 1, pos2 - pos);
+                int finded = loadedPlayers.FindIndex(dx => dx.Name.Replace(" ", "") == current);
+                if (finded != -1)
+                {
+                    loadedPlayers[finded].Image = item;
+                }
+            }
+
+            return loadedPlayers;
+        }
+
         private static async Task<List<Player>> FetchPlayers(string code)
         {
             List<Player> convertPlayers = new List<Player>();

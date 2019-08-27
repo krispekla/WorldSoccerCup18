@@ -29,6 +29,7 @@ namespace WPF
     {
         static List<Team> _listTeams;
         static List<Team> _listTeamsOpponents;
+        static List<Player> _playersWithImages;
         static List<PlayerStatistic> _favoriteListPlayers;
         static List<PlayerStatistic> _opponentListPlayers;
         static string _favoriteTactic = "";
@@ -114,10 +115,20 @@ namespace WPF
         {
             ClearGrids();
 
+            LoadImagesIntoPlayersAsync();
+
             _favoriteListPlayers = PrepareListPlayersPositionOrder(_favoriteListPlayers);
             _opponentListPlayers = PrepareListPlayersPositionOrder(_opponentListPlayers);
             CreateGrid(_favoriteTactic, _favoriteListPlayers, true);
             CreateGrid(_opponentTactic, _opponentListPlayers, false);
+        }
+
+        private async void LoadImagesIntoPlayersAsync()
+        {
+                List<PlayerStatistic> favTempPlayers = await Task.Run(() => Repository.SetPlayersImages(_favoriteListPlayers));
+                List<PlayerStatistic> oppTempPlayers = await Task.Run(() => Repository.SetPlayersImages(_opponentListPlayers));
+            _favoriteListPlayers= favTempPlayers;
+            _opponentListPlayers = oppTempPlayers;
         }
 
         private List<PlayerStatistic> PrepareListPlayersPositionOrder(List<PlayerStatistic> currentPlayers)
