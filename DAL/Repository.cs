@@ -14,7 +14,10 @@ namespace DAL
 {
     public class Repository
     {
-        private const string urlBase = "https://world-cup-json-2018.herokuapp.com/";
+        /*https://worldcup.sfg.io/ 
+          https://world-cup-json-2018.herokuapp.com/
+             */
+        private const string urlBase = "https://worldcup.sfg.io/";
         private const string urlTeams = urlBase + "teams/results";
         private const string urlPlayers = urlBase + "matches/country?fifa_code=";
         private static List<Team> _teams = new List<Team>();
@@ -22,10 +25,6 @@ namespace DAL
         private static List<PlayerStatistic> _playersStatistic = new List<PlayerStatistic>();
         static Repository() { }
 
-        public static bool LanguageIsSet()
-        {
-            return FileRepository.CheckLanguage();
-        }
 
         public static void WriteLanguagePreference(string lang)
         {

@@ -79,13 +79,28 @@ namespace DAL
 
         public static void WriteLanguagePreference(string lang)
         {
-            string settings = File.ReadAllText(fileSettingsPath);
-            int newLineIndex = settings.IndexOf("\r\n");
-            if (newLineIndex != -1)
+            string settings;
+            if (!File.Exists(fileSettingsPath))
             {
-            
-                string temp = settings.Substring(0, 9);
-                settings = temp + lang + settings.Substring(newLineIndex, (settings.Length - newLineIndex));
+                using (File.Create(fileSettingsPath)) { };
+                Settings s = new Settings();
+
+                s.Language = lang;
+                s.Height = 900;
+                s.Width = 1200;
+                settings = s.FormatForWriting();
+            }
+            else
+            {
+                settings = File.ReadAllText(fileSettingsPath);
+                int newLineIndex = settings.IndexOf("\r\n");
+                if (newLineIndex != -1)
+                {
+
+                    string temp = settings.Substring(0, 9);
+                    settings = temp + lang + settings.Substring(newLineIndex, (settings.Length - newLineIndex));
+                }
+
             }
 
             using (StreamWriter tw = new StreamWriter(fileSettingsPath))

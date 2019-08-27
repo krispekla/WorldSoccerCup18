@@ -15,6 +15,8 @@ using WINForms.Forms;
 using WINForms.Utils;
 using System.Linq.Dynamic;
 using System.Collections;
+using DGVPrinterHelper;
+using System.Threading;
 
 namespace WINForms
 {
@@ -30,7 +32,7 @@ namespace WINForms
         private string _selectingFavorite = "";
         private List<Match> _matches;
         private List<PlayerStatistic> _playersStatistic;
-        private bool sortAscending = false;
+        string resFolder;
 
         public MainForm()
         {
@@ -41,10 +43,21 @@ namespace WINForms
             _currentTeam = new Team();
             _matches = new List<Match>();
             _playersStatistic = new List<PlayerStatistic>();
+            resFolder = (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory.ToString()))) + "\\resources\\");
+
+            string lang = FileRepository.ReadLanguagePreference();
+            if (lang == "English")
+            {
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en");
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
+            }
+            else
+            {
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("hr");
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("hr");
+            }
 
             InitializeComponent();
-            dgPlayers.Visible = false;
-            dgMatches.Visible = false;
             ucTeamSelect.BtnSetFavoriteClick += UcTeamSelect_BtnSetFavoriteClick;
             ucTeamSelect.CbTeamsListSelectedValueChanged += UcTeamSelect_CbTeamsListSelectedValueChanged;
 
@@ -182,11 +195,21 @@ namespace WINForms
             ucTeamSelect.Enabled = true;
             _matches.Clear();
             _playersStatistic.Clear();
-            _matches = Repository.GetMatchesForSelectedTeam();
-            _playersStatistic = Repository.GetPlayerStatisticsForSelectedTeam();
+            try
+            {
+                _playersStatistic = Repository.GetPlayerStatisticsForSelectedTeam();
+                Task<List<Match>> taskMatches = Task.Run(async () => await Repository.GetMatchForSelectedTeam(_currentTeam.Fifa_code));
+                _matches = taskMatches.Result;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             UseWaitCursor = false;
             Enabled = true;
-            tbRang.Refresh();
+            dgRangPlayers.Refresh();
+            dgRangsMatches.Refresh();
         }
 
         private void BackgroundWorkerSaveFavoritePlayers_DoWork(object sender, DoWorkEventArgs e)
@@ -217,7 +240,7 @@ namespace WINForms
             string rootPath = Application.StartupPath;
             Directory.CreateDirectory(resFolder + "players\\img\\");
 
-            string playerName =resFolder +  "players\\img\\" + $"{pd.Name.Replace(" ", "")}.jpg";
+            string playerName = resFolder + "players\\img\\" + $"{pd.Name.Replace(" ", "")}.jpg";
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Title = "Change picture";
@@ -254,21 +277,53 @@ namespace WINForms
                 PlayerDetails pd = new PlayerDetails();
                 pd.ShowPlayerDetails(p);
                 pd.PlayerDetailsChangePictureClick += Pd_PlayerDetailsChangePictureClick;
+
+
                 if (p.Favorite)
                 {
                     _favoritesNum++;
                     pd.ContextMenuStrip = cmPlayersFav;
                     pd.PlayerDetailsClick += Pd_PlayerDetailsClickFav;
+                    pd.PlayerDetailsMouseDown += Pd_PlayerDetailsMouseDownFav;
                 }
                 else
                 {
                     pd.ContextMenuStrip = cmPlayersAll;
                     pd.PlayerDetailsClick += Pd_PlayerDetailsClickAll;
+                    pd.PlayerDetailsMouseDown += Pd_PlayerDetailsMouseDownAll;
                 }
                 plList.Add(pd);
             }
             SortAndDisplayPlayersControls(plList);
         }
+
+
+        private void Pd_PlayerDetailsMouseDownFav(object sender, MouseEventArgs e)
+        {
+            //PlayerDetails pd = (PlayerDetails)sender;
+
+            //pd.DoDragDrop(pd, DragDropEffects.Copy | DragDropEffects.Move);
+            Pd_PlayerDetailsClickFav(sender, e);
+            //pd.SetSelected();
+
+        }
+
+        private void Pd_PlayerDetailsMouseDownAll(object sender, MouseEventArgs e)
+        {
+            //PlayerDetails pd = (PlayerDetails)sender;
+
+            //pd.DoDragDrop(pd, DragDropEffects.Copy | DragDropEffects.Move);
+
+            //if (CanBeTransfered())
+            //Pd_PlayerDetailsClickAll(pd, e);
+
+            //pd.SetSelected();
+            //this.DoDragDrop(this, DragDropEffects.Copy | DragDropEffects.Move);
+            //Pd_PlayerDetailsClickFav(pd, e);
+
+            Pd_PlayerDetailsClickAll(sender, e);
+        }
+
         private void SortAndDisplayPlayersControls(List<Control> plList)
         {
             flAllPlayers.Controls.Clear();
@@ -290,13 +345,13 @@ namespace WINForms
         {
             if (e.Button == MouseButtons.Right) return;
 
+            PlayerDetails curr = sender as PlayerDetails;
 
             if (String.IsNullOrEmpty(_selectingFavorite))
                 _selectingFavorite = "Fav";
 
             else if (_selectingFavorite != "Fav") return;
 
-            PlayerDetails curr = sender as PlayerDetails;
 
             if (curr.IsSelected)
             {
@@ -448,300 +503,236 @@ namespace WINForms
                 UseWaitCursor = true;
                 Enabled = false;
             }
-            //if ((sender as RadioButton).Text == "Players")
-            //{
-            //    dgMatches.Visible = false;
-            //    dgPlayers.Visible = true;
-            //}
-            //else if ((sender as RadioButton).Text == "Matches")
-            //{
-            //    dgMatches.Visible = true;
-            //    dgPlayers.Visible = false;
-            //}
 
         }
 
-        private void RbPlayers_CheckedChanged(object sender, EventArgs e)
+
+        private void flFavoritePlayers_DragEnterIntoFavorite(object sender, DragEventArgs e)
         {
-            dgMatches.Visible = false;
-            dgPlayers.Visible = true;
+            e.Effect = DragDropEffects.Copy;
 
-            bindSourcePlayers.DataSource = _playersStatistic;
-            dgPlayers.DataSource = bindSourcePlayers;
-            dgPlayers.DataSource = _playersStatistic.OrderBy(dgPlayers.Columns["Goals"].DataPropertyName).Reverse().ToList();
-
-            dgPlayers.AutoGenerateColumns = false;
-            dgPlayers.RowTemplate.Height = 80;
-
-            dgPlayers.Columns["Name"].Visible = true;
-            dgPlayers.Columns["Name"].DisplayIndex = 0;
-            dgPlayers.Columns["Name"].Width = 180;
-            dgPlayers.Columns["Appearances"].DisplayIndex = 1;
-            dgPlayers.Columns["Appearances"].Width = 110;
-            dgPlayers.Columns["Yellow_cards"].DisplayIndex = 2;
-            dgPlayers.Columns["Yellow_cards"].Width = 110;
-            dgPlayers.Columns["Goals"].DisplayIndex = 3;
-            dgPlayers.Columns["Goals"].Width = 80;
-            dgPlayers.Columns["Image"].DisplayIndex = 4;
-            dgPlayers.Columns["Image"].Width = 190;
-
-            dgPlayers.Columns["Captain"].Visible = false;
-            dgPlayers.Columns["Favorite"].Visible = false;
-            dgPlayers.Columns["Position"].Visible = false;
-            dgPlayers.Columns["Shirt_number"].Visible = false;
-
-            this.dgPlayers.RowTemplate.DefaultCellStyle
-                .Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            this.dgPlayers.DefaultCellStyle.NullValue = "N/A";
-            this.dgPlayers.DefaultCellStyle.WrapMode =
-                DataGridViewTriState.True;
-        }
-        private void RbMatches_CheckedChanged(object sender, EventArgs e)
-        {
-            dgMatches.Visible = true;
-            dgPlayers.Visible = false;
-
-            bindSourceMatches.DataSource = _matches;
-            dgMatches.DataSource = bindSourceMatches;
-            dgMatches.DataSource = _matches.OrderBy(dgMatches.Columns["Attendance"].DataPropertyName).Reverse().ToList();
-
-            dgMatches.AutoGenerateColumns = false;
-            //dgMatches.RowTemplate.Height = 38;
-
-            dgMatches.Columns["Datetime"].DisplayIndex = 0;
-            dgMatches.Columns["Datetime"].HeaderText = "Date";
-            dgMatches.Columns["Datetime"].Width = 100;
-            dgMatches.Columns["Home_team_country"].HeaderText = "Home team";
-            dgMatches.Columns["Home_team_country"].DisplayIndex = 1;
-            dgMatches.Columns["Home_team_country"].Width = 90;
-            dgMatches.Columns["Away_team_country"].HeaderText = "Away team";
-            dgMatches.Columns["Away_team_country"].DisplayIndex = 2;
-            dgMatches.Columns["Away_team_country"].Width = 90;
-            dgMatches.Columns["Location"].DisplayIndex = 3;
-            dgMatches.Columns["Location"].Width = 80;
-            dgMatches.Columns["Venue"].DisplayIndex = 4;
-            dgMatches.Columns["Venue"].Width = 180;
-            dgMatches.Columns["Winner"].DisplayIndex = 5;
-            dgMatches.Columns["Winner"].Width = 100;
-            dgMatches.Columns["Attendance"].DisplayIndex = 6;
-            dgMatches.Columns["Attendance"].Width = 100;
-
-            //dgMatches.Columns["Venue"].Visible = false;
-
-            this.dgMatches.RowTemplate.DefaultCellStyle
-                .Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            this.dgMatches.DefaultCellStyle.NullValue = "N/A";
-            this.dgMatches.DefaultCellStyle.WrapMode =
-                DataGridViewTriState.True;
         }
 
-        private void DgMatches_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void flFavoritePlayers_DragDrop(object sender, DragEventArgs e)
         {
-            if (sortAscending)
-                dgMatches.DataSource = _matches.OrderBy(dgMatches.Columns[e.ColumnIndex].DataPropertyName).ToList();
-            else
-                dgMatches.DataSource = _matches.OrderBy(dgMatches.Columns[e.ColumnIndex].DataPropertyName).Reverse().ToList();
-            sortAscending = !sortAscending;
-        }
-        private void DgPlayers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.ColumnIndex != 0 && e.ColumnIndex != 2) return;
+            if (_selected.Count != 0) return;
+            PlayerDetails plD = (PlayerDetails)e.Data.GetData(e.Data.GetFormats()[0]);
 
-            if (sortAscending)
-                dgPlayers.DataSource = _playersStatistic.OrderBy(dgPlayers.Columns[e.ColumnIndex].DataPropertyName).ToList();
-            else
-                dgPlayers.DataSource = _playersStatistic.OrderBy(dgPlayers.Columns[e.ColumnIndex].DataPropertyName).Reverse().ToList();
-            sortAscending = !sortAscending;
-        }
-        //Printing 
-
-        StringFormat strFormat; //Used to format the grid rows.
-        ArrayList arrColumnLefts = new ArrayList();//Used to save left coordinates of columns
-        ArrayList arrColumnWidths = new ArrayList();//Used to save column widths
-        int iCellHeight = 30; //Used to get/set the datagridview cell height
-        int iTotalWidth = 0; //
-        int iRow = 0;//Used as counter
-        bool bFirstPage = false; //Used to check whether we are printing first page
-        bool bNewPage = false;// Used to check whether we are printing a new page
-        int iHeaderHeight = 0; //Used for the header height
-
-        private void PrintDocumentPlayers_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-
-            try
+            Player p = new Player()
             {
-                //Set the left margin
-                int iLeftMargin = e.MarginBounds.Left;
-                //Set the top margin
-                int iTopMargin = e.MarginBounds.Top;
-                //Whether more pages have to print or not
-                bool bMorePagesToPrint = false;
-                int iTmpWidth = 0;
+                Name = plD.Name,
+                Shirt_number = int.Parse(plD.lbShirtNumber.Text),
+                Favorite = (plD.Name.ToString().Substring(plD.Name.Length - 1) == "*") ? true : false
+            };
 
-                //For the first page to print set the cell width and header height
-                if (bFirstPage)
-                {
-                    foreach (DataGridViewColumn GridCol in dgPlayers.Columns)
-                    {
-                        iTmpWidth = (int)(Math.Floor((double)((double)GridCol.Width /
-                            (double)iTotalWidth * (double)iTotalWidth *
-                            ((double)e.MarginBounds.Width / (double)iTotalWidth))));
+            if (_selected.Count < 3)
+                _selected.Add(p);
 
-                        iHeaderHeight = (int)(e.Graphics.MeasureString(GridCol.HeaderText,
-                            GridCol.InheritedStyle.Font, iTmpWidth).Height) + 21;
+            if (!CanBeTransfered()) return;
 
-                        // Save width and height of headers
-                        arrColumnLefts.Add(iLeftMargin);
-                        arrColumnWidths.Add(iTmpWidth);
-                        iLeftMargin += iTmpWidth;
-                    }
-                }
-                //Loop till all the grid rows not get printed
-                while (iRow <= dgPlayers.Rows.Count - 1)
-                {
-                    DataGridViewRow GridRow = dgPlayers.Rows[iRow];
-                    //Set the cell height
-                    iCellHeight = GridRow.Height + 45;
-                    int iCount = 0;
-                    //Check whether the current page settings allows more rows to print
-                    if (iTopMargin + iCellHeight >= e.MarginBounds.Height + e.MarginBounds.Top)
-                    {
-                        bNewPage = true;
-                        bFirstPage = false;
-                        bMorePagesToPrint = true;
-                        break;
-                    }
-                    else
-                    {
-                        if (bNewPage)
-                        {
-                            //Draw Header
-                            e.Graphics.DrawString("Customer Summary",
-                                new Font(dgPlayers.Font, FontStyle.Bold),
-                                Brushes.Black, e.MarginBounds.Left,
-                                e.MarginBounds.Top - e.Graphics.MeasureString("Customer Summary",
-                                new Font(dgPlayers.Font, FontStyle.Bold),
-                                e.MarginBounds.Width).Height - 13);
+            _selectingFavorite = "";
+            UpdatePlayersList();
+            LoadPlayersIntoControls();
+            UseWaitCursor = true;
+            backgroundWorkerSaveFavoritePlayers.RunWorkerAsync();
+        }
 
-                            String strDate = DateTime.Now.ToLongDateString() + " " +
-                                DateTime.Now.ToShortTimeString();
-                            //Draw Date
-                            e.Graphics.DrawString(strDate,
-                                new Font(dgPlayers.Font, FontStyle.Bold), Brushes.Black,
-                                e.MarginBounds.Left +
-                                (e.MarginBounds.Width - e.Graphics.MeasureString(strDate,
-                                new Font(dgPlayers.Font, FontStyle.Bold),
-                                e.MarginBounds.Width).Width),
-                                e.MarginBounds.Top - e.Graphics.MeasureString("Customer Summary",
-                                new Font(new Font(dgPlayers.Font, FontStyle.Bold),
-                                FontStyle.Bold), e.MarginBounds.Width).Height - 13);
+        private void btnRangPlayersClick(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            SetupDataGridView();
+            PopulateDataGridView();
+            UseWaitCursor = false;
+        }
 
-                            //Draw Columns                 
-                            iTopMargin = e.MarginBounds.Top;
-                            foreach (DataGridViewColumn GridCol in dgPlayers.Columns)
-                            {
-                                if (GridCol.HeaderText == "Favorite") continue;
-                                
 
-                                
-                                e.Graphics.FillRectangle(new SolidBrush(Color.LightGray),
-                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                    (int)arrColumnWidths[iCount], iHeaderHeight));
+        private void SetupDataGridView()
+        {
+            dgRangPlayers.ColumnCount = 4;
 
-                                e.Graphics.DrawRectangle(Pens.Black,
-                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                    (int)arrColumnWidths[iCount], iHeaderHeight));
+            dgRangPlayers.Name = "dgTest";
+            dgRangPlayers.AutoSizeRowsMode =
+                DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            dgRangPlayers.ColumnHeadersBorderStyle =
+                DataGridViewHeaderBorderStyle.Sunken;
+            dgRangPlayers.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            dgRangPlayers.GridColor = Color.Black;
+            dgRangPlayers.RowHeadersVisible = true;
 
-                                e.Graphics.DrawString(GridCol.HeaderText,
-                                    GridCol.InheritedStyle.Font,
-                                    new SolidBrush(GridCol.InheritedStyle.ForeColor),
-                                    new RectangleF((int)arrColumnLefts[iCount], iTopMargin,
-                                    (int)arrColumnWidths[iCount], iHeaderHeight), strFormat);
-                                iCount++;
-                            }
-                            bNewPage = false;
-                            iTopMargin += iHeaderHeight;
-                        }
-                        iCount = 0;
-                        //Draw Columns Contents                
-                        foreach (DataGridViewCell Cel in GridRow.Cells)
-                        {
-                            if (Cel.ColumnIndex == 8) continue;
-                            
-                            if (Cel.ColumnIndex == 7)
-                            {
-                                Image pic = new Bitmap(_currentPlayers[0].Image);
-                                e.Graphics.DrawImage(pic, new RectangleF((int)arrColumnLefts[iCount],
-                                    (float)iTopMargin,
-                                    (int)arrColumnWidths[iCount], (float)iCellHeight));
-                            }
-                            if (Cel.Value != null)
-                            {
-                                e.Graphics.DrawString(Cel.Value.ToString(),
-                                    Cel.InheritedStyle.Font,
-                                    new SolidBrush(Cel.InheritedStyle.ForeColor),
-                                    new RectangleF((int)arrColumnLefts[iCount],
-                                    (float)iTopMargin,
-                                    (int)arrColumnWidths[iCount], (float)iCellHeight),
-                                    strFormat);
-                            }
-                            //Drawing Cells Borders 
-                            e.Graphics.DrawRectangle(Pens.Black,
-                                new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                (int)arrColumnWidths[iCount], iCellHeight));
-                            iCount++;
-                        }
-                    }
-                    iRow++;
-                    iTopMargin += iCellHeight;
-                }
-                //If more lines exist, print another page.
-                if (bMorePagesToPrint)
-                    e.HasMorePages = true;
+            dgRangPlayers.AutoGenerateColumns = false;
+            dgRangPlayers.RowTemplate.Height = 80;
+
+            dgRangPlayers.Columns[0].Name = "Name";
+            dgRangPlayers.Columns[1].Name = "Appearances";
+            dgRangPlayers.Columns[2].Name = "Yellow_cards";
+            dgRangPlayers.Columns[3].Name = "Goals";
+
+            dgRangPlayers.Columns[0].Width = 180;
+            dgRangPlayers.Columns[1].Width = 110;
+            dgRangPlayers.Columns[2].Width = 110;
+            dgRangPlayers.Columns[3].Width = 80;
+
+            DataGridViewImageColumn imgColumn = new DataGridViewImageColumn();
+            imgColumn.Name = "Image";
+            imgColumn.HeaderText = "Image";
+            imgColumn.Width = 150;
+            dgRangPlayers.Columns.Insert(4, imgColumn);
+        }
+
+        private void PopulateDataGridView()
+        {
+            dgRangPlayers.Rows.Clear();
+            dgRangPlayers.Rows.Add();
+
+
+            foreach (PlayerStatistic item in _playersStatistic)
+            {
+                DataGridViewRow dg = (DataGridViewRow)dgRangPlayers.Rows[0].Clone();
+                dg.Cells[0].Value = item.Name;
+                dg.Cells[1].Value = item.Appearances;
+                dg.Cells[2].Value = item.Yellow_cards;
+                dg.Cells[3].Value = item.Goals;
+
+                string defaultImage;
+
+                if (item.Image != null)
+                    defaultImage = item.Image;
                 else
-                    e.HasMorePages = false;
+                    defaultImage = resFolder + @"players\img\default.jpg";
+
+
+                Bitmap bmp = new Bitmap(defaultImage);
+                Bitmap bmpResized = new Bitmap(bmp, new Size(70, 80));
+
+                dg.Cells[4].Value = bmpResized;
+                dg.Height = 80;
+
+                dgRangPlayers.Rows.Add(dg);
             }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
-            }
+            dgRangPlayers.Rows.RemoveAt(0);
         }
-        private void PrintDocumentPlayers_BeginPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+
+        private void btnRangPlayersPrintClick(object sender, EventArgs e)
         {
-            try
-            {
-                strFormat = new StringFormat();
-                strFormat.Alignment = StringAlignment.Near;
-                strFormat.LineAlignment = StringAlignment.Center;
-                strFormat.Trimming = StringTrimming.EllipsisCharacter;
+            DGVPrinter printer = new DGVPrinter();
+            printer.Title = "RWA Project - World Cup 2018";
+            printer.SubTitle = "Kris Peklaric";
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit |
 
-                arrColumnLefts.Clear();
-                arrColumnWidths.Clear();
-                iCellHeight = 0;
-                bFirstPage = true;
-                bNewPage = true;
+    StringFormatFlags.NoClip;
+            printer.PageNumbers = true;
+            printer.PageNumberInHeader = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = StringAlignment.Near;
+            printer.Footer = "Algebra - 2019";
+            printer.FooterSpacing = 15;
 
-                // Calculating Total Widths
-                iTotalWidth = 0;
-                foreach (DataGridViewColumn dgvGridCol in dgPlayers.Columns)
-                {
-                    iTotalWidth += dgvGridCol.Width;
-                }
-            }
-            catch (Exception ex)
+            if (DialogResult.OK == printer.DisplayPrintDialog())
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                printer.PrintNoDisplay(dgRangPlayers);
             }
         }
 
-        private void BtnPrint_Click(object sender, EventArgs e)
+        private void btnSettingsClick(object sender, EventArgs e)
         {
-            printPreviewDialog.ShowDialog();
+            Language lang = new Language(false);
+            lang.ShowDialog();
         }
 
+        private void btnExitClick(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(GlobalStrings.AreYouShureClose,
+                    GlobalStrings.Close, MessageBoxButtons.YesNo);
 
+
+            if (result == DialogResult.Yes)
+                Application.Exit();
+        }
+
+        private void btnRefreshMatches_Click(object sender, EventArgs e)
+        {
+            dgRangsMatches.UseWaitCursor = true;
+            SetupDataGridViewMatches();
+            PopulateDataGridViewMatches();
+            dgRangsMatches.Refresh();
+            dgRangsMatches.UseWaitCursor = false;
+        }
+
+        private void SetupDataGridViewMatches()
+        {
+            dgRangsMatches.ColumnCount = 7;
+
+            dgRangsMatches.Name = "dgRangsMatches";
+            dgRangsMatches.AutoSizeRowsMode =
+                DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            dgRangsMatches.ColumnHeadersBorderStyle =
+                DataGridViewHeaderBorderStyle.Sunken;
+            dgRangsMatches.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            dgRangsMatches.GridColor = Color.Black;
+            dgRangsMatches.RowHeadersVisible = true;
+
+            dgRangsMatches.AutoGenerateColumns = false;
+            dgRangsMatches.RowTemplate.Height = 80;
+
+            dgRangsMatches.Columns[0].Name = "Date";
+            dgRangsMatches.Columns[1].Name = "Home team";
+            dgRangsMatches.Columns[2].Name = "Away team";
+            dgRangsMatches.Columns[3].Name = "Location";
+            dgRangsMatches.Columns[4].Name = "Venue";
+            dgRangsMatches.Columns[5].Name = "Winner";
+            dgRangsMatches.Columns[6].Name = "Attendance";
+
+            dgRangsMatches.Columns[0].Width = 120;
+            dgRangsMatches.Columns[1].Width = 90;
+            dgRangsMatches.Columns[2].Width = 90;
+            dgRangsMatches.Columns[3].Width = 80;
+            dgRangsMatches.Columns[4].Width = 180;
+            dgRangsMatches.Columns[5].Width = 100;
+            dgRangsMatches.Columns[6].Width = 100;
+
+        }
+
+        private void PopulateDataGridViewMatches()
+        {
+            dgRangsMatches.Rows.Clear();
+            dgRangsMatches.Rows.Add();
+
+
+            foreach (Match item in _matches)
+            {
+                DataGridViewRow dg = (DataGridViewRow)dgRangsMatches.Rows[0].Clone();
+                dg.Cells[0].Value = item.Datetime;
+                dg.Cells[1].Value = item.Home_team_country;
+                dg.Cells[2].Value = item.Away_team_country;
+                dg.Cells[3].Value = item.Location;
+                dg.Cells[4].Value = item.Venue;
+                dg.Cells[5].Value = item.Winner;
+                dg.Cells[6].Value = item.Attendance;
+
+                dgRangsMatches.Rows.Add(dg);
+            }
+            dgRangsMatches.Rows.RemoveAt(0);
+        }
+
+        private void btnPrintMatches_Click(object sender, EventArgs e)
+        {
+            DGVPrinter printer = new DGVPrinter();
+            printer.Title = "RWA Project - World Cup 2018";
+            printer.SubTitle = "Kris Peklaric";
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit |
+
+    StringFormatFlags.NoClip;
+            printer.PageNumbers = true;
+            printer.PageNumberInHeader = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = StringAlignment.Near;
+            printer.Footer = "Algebra - 2019";
+            printer.FooterSpacing = 15;
+
+            if (DialogResult.OK == printer.DisplayPrintDialog())
+            {
+                printer.PrintNoDisplay(dgRangsMatches);
+            }
+        }
     }
 }
