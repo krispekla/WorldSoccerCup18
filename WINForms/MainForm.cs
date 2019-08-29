@@ -509,8 +509,8 @@ namespace WINForms
             dgRangPlayers.Columns[3].Name = "Goals";
 
             dgRangPlayers.Columns[0].Width = 180;
-            dgRangPlayers.Columns[1].Width = 110;
-            dgRangPlayers.Columns[2].Width = 110;
+            dgRangPlayers.Columns[1].Width = 80;
+            dgRangPlayers.Columns[2].Width = 80;
             dgRangPlayers.Columns[3].Width = 80;
 
             DataGridViewImageColumn imgColumn = new DataGridViewImageColumn();
@@ -632,7 +632,7 @@ namespace WINForms
             dgRangsMatches.Columns[1].Width = 90;
             dgRangsMatches.Columns[2].Width = 90;
             dgRangsMatches.Columns[3].Width = 80;
-            dgRangsMatches.Columns[4].Width = 180;
+            dgRangsMatches.Columns[4].Width = 120;
             dgRangsMatches.Columns[5].Width = 100;
             dgRangsMatches.Columns[6].Width = 100;
 
