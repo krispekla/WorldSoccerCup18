@@ -41,7 +41,7 @@ namespace DAL
 
         public static string GetFavoriteTeam()
         {
-            if (!File.Exists(fileFavoriteTeamPath)) return null;
+            if (!File.Exists(fileFavoriteTeamPath)) return "Canada CAN";
 
             string s;
             using (StreamReader sr = new StreamReader(fileFavoriteTeamPath))

@@ -62,8 +62,8 @@ namespace WINForms.Controls
 
             if (String.IsNullOrEmpty(player.Image))
             {
-                string defaultImage = resFolder + @"players\img\default.jpg";
-                pbPicture.Image = new Bitmap(defaultImage);
+                //string defaultImage = resFolder + @"players\img\default.jpg";
+                pbPicture.Image = new Bitmap(WINForms.Properties.Resources._default);
             }
             else
             {
