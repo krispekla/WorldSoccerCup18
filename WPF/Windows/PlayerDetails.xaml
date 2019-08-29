@@ -6,7 +6,7 @@
         xmlns:p="clr-namespace:WPF.Properties"
         xmlns:local="clr-namespace:WPF.Windows"
         mc:Ignorable="d"
-        Title="{x:Static p:Resources.PlayerDetails}" Height="470" Width="360" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen">
+        Title="{x:Static p:Resources.PlayerDetails}" Height="470" Width="360" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen" KeyUp="Window_KeyUp">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">

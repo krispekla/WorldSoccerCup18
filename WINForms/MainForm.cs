@@ -284,45 +284,17 @@ namespace WINForms
                     _favoritesNum++;
                     pd.ContextMenuStrip = cmPlayersFav;
                     pd.PlayerDetailsClick += Pd_PlayerDetailsClickFav;
-                    pd.PlayerDetailsMouseDown += Pd_PlayerDetailsMouseDownFav;
                 }
                 else
                 {
                     pd.ContextMenuStrip = cmPlayersAll;
                     pd.PlayerDetailsClick += Pd_PlayerDetailsClickAll;
-                    pd.PlayerDetailsMouseDown += Pd_PlayerDetailsMouseDownAll;
                 }
                 plList.Add(pd);
             }
             SortAndDisplayPlayersControls(plList);
         }
 
-
-        private void Pd_PlayerDetailsMouseDownFav(object sender, MouseEventArgs e)
-        {
-            //PlayerDetails pd = (PlayerDetails)sender;
-
-            //pd.DoDragDrop(pd, DragDropEffects.Copy | DragDropEffects.Move);
-            Pd_PlayerDetailsClickFav(sender, e);
-            //pd.SetSelected();
-
-        }
-
-        private void Pd_PlayerDetailsMouseDownAll(object sender, MouseEventArgs e)
-        {
-            //PlayerDetails pd = (PlayerDetails)sender;
-
-            //pd.DoDragDrop(pd, DragDropEffects.Copy | DragDropEffects.Move);
-
-            //if (CanBeTransfered())
-            //Pd_PlayerDetailsClickAll(pd, e);
-
-            //pd.SetSelected();
-            //this.DoDragDrop(this, DragDropEffects.Copy | DragDropEffects.Move);
-            //Pd_PlayerDetailsClickFav(pd, e);
-
-            Pd_PlayerDetailsClickAll(sender, e);
-        }
 
         private void SortAndDisplayPlayersControls(List<Control> plList)
         {
@@ -506,37 +478,6 @@ namespace WINForms
 
         }
 
-
-        private void flFavoritePlayers_DragEnterIntoFavorite(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.Copy;
-
-        }
-
-        private void flFavoritePlayers_DragDrop(object sender, DragEventArgs e)
-        {
-            if (_selected.Count != 0) return;
-            PlayerDetails plD = (PlayerDetails)e.Data.GetData(e.Data.GetFormats()[0]);
-
-            Player p = new Player()
-            {
-                Name = plD.Name,
-                Shirt_number = int.Parse(plD.lbShirtNumber.Text),
-                Favorite = (plD.Name.ToString().Substring(plD.Name.Length - 1) == "*") ? true : false
-            };
-
-            if (_selected.Count < 3)
-                _selected.Add(p);
-
-            if (!CanBeTransfered()) return;
-
-            _selectingFavorite = "";
-            UpdatePlayersList();
-            LoadPlayersIntoControls();
-            UseWaitCursor = true;
-            backgroundWorkerSaveFavoritePlayers.RunWorkerAsync();
-        }
-
         private void btnRangPlayersClick(object sender, EventArgs e)
         {
             UseWaitCursor = true;
@@ -594,14 +535,19 @@ namespace WINForms
                 dg.Cells[3].Value = item.Goals;
 
                 string defaultImage;
-
+                Bitmap bmp;
                 if (item.Image != null)
+                {
                     defaultImage = item.Image;
+                    bmp = new Bitmap(defaultImage);
+                }
                 else
-                    defaultImage = resFolder + @"players\img\default.jpg";
+                {
+                    //defaultImage = resFolder + @"players\img\default.jpg";
+                    bmp = new Bitmap(WINForms.Properties.Resources._default);
+                }
 
 
-                Bitmap bmp = new Bitmap(defaultImage);
                 Bitmap bmpResized = new Bitmap(bmp, new Size(70, 80));
 
                 dg.Cells[4].Value = bmpResized;
