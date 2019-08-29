@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF"
+        xmlns:p="clr-namespace:WPF.Properties"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:windows="clr-namespace:WPF.Windows"
         mc:Ignorable="d"
-        Title="MainWindow" Width="0" Closed="Window_Closed" MinWidth="600" MinHeight="400" WindowStartupLocation="CenterScreen" Height="0">
+        Title="World Soccer Cup 2018" Width="0" Closed="Window_Closed" MinWidth="900" MinHeight="700" WindowStartupLocation="CenterScreen" Height="0" KeyUp="WinMain_KeyUp">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#E5C6E0C6"/>
@@ -23,7 +24,7 @@
         </Grid.RowDefinitions>
         <WrapPanel x:Name="wrapPanel" Grid.Row="0" Height="60"  Background="DarkSeaGreen" Orientation="Horizontal" MaxWidth="600">
             <StackPanel Orientation="Horizontal" Margin="15,0">
-                <Label Content="Favorite Team:" Height="25"/>
+                <Label Content="{x:Static p:Resources.FavoriteTeam}" Height="25"/>
                 <ComboBox x:Name="cbFavoriteTeam" ItemsSource="{Binding  _listTeams}"  Width="120" Height="20" Margin="10, 20" Text="Belgija" Cursor="Hand" SelectionChanged="CbFavoriteTeam_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -43,7 +44,7 @@
             <Label Content="vs" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0"/>
 
             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                <Label Content="Opponent:" Height="25" />
+                <Label Content="{x:Static p:Resources.Opponent}" Height="25" />
                 <ComboBox x:Name="cbOpponent" ItemsSource="{Binding  __listTeamsOpponents}" Width="120" Height="20" Margin="10, 20" Text="Belgija" Cursor="Hand" SelectionChanged="CbOpponent_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -63,20 +64,27 @@
 
             <StackPanel Orientation="Vertical" Margin="20,10,0,10">
                 <fa:ImageAwesome x:Name="faExit" Icon="WindowClose" Spin="false" HorizontalAlignment="Center" VerticalAlignment="Center" Width="15" Height="12" Foreground="Black" Cursor="Hand" MouseUp="FaExit_MouseUp" />
-                <fa:ImageAwesome x:Name="faSettings" Icon="Adjust" Margin="0,10" Spin="false" HorizontalAlignment="Center" VerticalAlignment="Center" Width="15" Height="12" Cursor="Hand" Foreground="Black" />
+                <fa:ImageAwesome x:Name="faSettings" Icon="Adjust" Margin="0,10" Spin="false" HorizontalAlignment="Center" VerticalAlignment="Center" Width="15" Height="12" Cursor="Hand" Foreground="Black" MouseUp="FaSettings_MouseUp" />
             </StackPanel>
         </WrapPanel>
 
-        <UniformGrid x:Name="wpGrids" Grid.Row="1" HorizontalAlignment="Stretch"  MaxWidth="1100" MaxHeight="700">
+        <UniformGrid x:Name="wpGrids" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
             <UniformGrid.Background>
                 <ImageBrush ImageSource="Resources/field.jpg"/>
             </UniformGrid.Background>
-            <DockPanel x:Name="dockPanel" Width="{Binding Height, ElementName=wpGrids}" Height="{Binding Width, ElementName=dockPanel}" LastChildFill="False" >
-                <Grid DockPanel.Dock="Left" x:Name="gridFavorite" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Grid  DockPanel.Dock="Right" x:Name="gridOpponent" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            </DockPanel>
+                <Grid Grid.Row="1" x:Name="gridFavorite"/>
+                <Grid  Grid.Column="2" x:Name="gridOpponent" />
+            </Grid>
         </UniformGrid>
 
     </Grid>

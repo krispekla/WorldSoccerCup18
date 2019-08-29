@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:p="clr-namespace:WPF.Properties"
         mc:Ignorable="d" FontSize="14"
-        Title="TeamDetails" Height="430" Width="400" WindowStartupLocation="CenterScreen">
+        Title="Team details" Height="500" Width="400" WindowStartupLocation="CenterScreen" KeyUp="Window_KeyUp">
     <Window.Triggers>
         <EventTrigger RoutedEvent="Loaded">
             <BeginStoryboard>
@@ -18,54 +19,54 @@
     <Grid>
         <StackPanel Height="400" Width="360" Orientation="Vertical">
             <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,25,20,5">
-                <Label Content="Country:" />
+                <Label Content="{x:Static p:Resources.Country}" />
                 <Label x:Name="lbCountryName" Content=""/>
             </WrapPanel>
             <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
-                <Label Content="FIFA Code:" />
+                <Label Content="{x:Static p:Resources.FIFACode}" />
                 <Label x:Name="lbFIFACode" Content=""/>
             </WrapPanel>
 
             <StackPanel Height="100" Orientation="Horizontal">
 
                 <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
-                    <Label Content="Matches played:" />
+                    <Label Content="{x:Static p:Resources.MatchesPlayed}" />
                     <Label x:Name="lbMatchesPlayed" Content=""/>
                 </WrapPanel>
 
                 <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
-                    <Label Content="Wins:" />
+                    <Label Content="{x:Static p:Resources.Wins}" />
                     <Label x:Name="lbWins" Content=""/>
                 </WrapPanel>
 
                 <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
-                    <Label Content="Loses:" />
+                    <Label Content="{x:Static p:Resources.Loses}" />
                     <Label x:Name="lbLoses" Content=""/>
                 </WrapPanel>
 
+            </StackPanel>
                 <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
-                    <Label Content="Draws:" />
+                    <Label Content="{x:Static p:Resources.Draws}" />
                     <Label x:Name="lbDraws" Content=""/>
                 </WrapPanel>
-            </StackPanel>
             <WrapPanel Height="100" Margin="20" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                 <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
-                    <Label Content="Goals scored:" />
+                    <Label Content="{x:Static p:Resources.GoalsScored}" />
                     <Label x:Name="lbGoalsScored" Content=""/>
                 </WrapPanel>
 
                 <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
-                    <Label Content="Goals received:" />
+                    <Label Content="{x:Static p:Resources.GoalsReceived}" />
                     <Label x:Name="lbGoalsReceived" Content=""/>
                 </WrapPanel>
 
                 <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,5">
-                    <Label Content="Goals differential:" />
+                    <Label Content="{x:Static p:Resources.GoalsDifferential}" />
                     <Label x:Name="lbGoalsDifferential" Content=""/>
                 </WrapPanel>
             </WrapPanel>
-            <Button Content="Close" Width="120" Background="red" Foreground="White" Click="Button_Click" Cursor="Hand"/>
+            <Button Content="{x:Static p:Resources.Close}" Width="120" Background="red" Foreground="White" Click="Button_Click" Cursor="Hand"/>
 
         </StackPanel>
 

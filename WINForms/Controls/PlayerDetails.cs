@@ -17,6 +17,7 @@ namespace WINForms.Controls
         public bool Favorite { get; set; }
         public bool IsSelected { get; set; }
         public Player Player { get; set; }
+        public bool ignoreClick = false;
         private static string resFolder = "";
 
         public delegate void PlayerDetailsClickHandler(object sender, MouseEventArgs e);
@@ -25,7 +26,11 @@ namespace WINForms.Controls
         public delegate void PlayerDetailsChangePictureClickHandler(object sender, EventArgs e);
         public event PlayerDetailsChangePictureClickHandler PlayerDetailsChangePictureClick;
 
+        public delegate void PlayerDetailsMouseDownHandler(object sender, MouseEventArgs e);
+        public event PlayerDetailsMouseDownHandler PlayerDetailsMouseDown;
 
+        //public delegate void PlayerDetailsMouseMoveHandler(object sender, MouseEventArgs e);
+        //public event PlayerDetailsMouseMoveHandler PlayerDetailsMouseMove;
         public PlayerDetails()
         {
             resFolder = (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory.ToString()))) + "\\resources\\");
@@ -93,5 +98,11 @@ namespace WINForms.Controls
             
             PlayerDetailsChangePictureClick?.Invoke(Player, e);
         }
+
+        private void PlayerDetails_MouseDown(object sender, MouseEventArgs e)
+        {
+            PlayerDetailsMouseDown?.Invoke(sender, e);
+        }
+
     }
 }

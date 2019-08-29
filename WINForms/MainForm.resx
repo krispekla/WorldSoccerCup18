@@ -117,40 +117,153 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="backgroundWorkerInit.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="backgroundWorkerSaveFavoriteTeam.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>191, 17</value>
-  </metadata>
-  <metadata name="backgroundWorkerGetPlayersByCode.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>641, 21</value>
-  </metadata>
-  <metadata name="cmPlayersAll.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>703, 17</value>
-  </metadata>
-  <metadata name="cmPlayersFav.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1167, 13</value>
-  </metadata>
-  <metadata name="backgroundWorkerSaveFavoritePlayers.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 41</value>
-  </metadata>
-  <metadata name="bindSourcePlayers.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1275, 13</value>
-  </metadata>
-  <metadata name="bindSourceMatches.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 94</value>
-  </metadata>
-  <metadata name="printDocumentPlayers.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>160, 94</value>
-  </metadata>
-  <metadata name="printDocumentMatches.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>316, 94</value>
-  </metadata>
-  <metadata name="printPreviewDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>480, 94</value>
-  </metadata>
+  <data name="&gt;&gt;tbPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="&gt;&gt;btnPrintMatches.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="btnSettings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="printPreviewDialog.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>400, 300</value>
+  </data>
+  <data name="&gt;&gt;printDocumentMatches.Type" xml:space="preserve">
+    <value>System.Drawing.Printing.PrintDocument, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1120, 568</value>
+  </data>
+  <data name="lbPlayers.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 16pt</value>
+  </data>
+  <data name="&gt;&gt;backgroundWorkerSaveFavoritePlayers.Name" xml:space="preserve">
+    <value>backgroundWorkerSaveFavoritePlayers</value>
+  </data>
+  <data name="tbPlayers.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="&gt;&gt;btnRefreshMatches.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;dgRangsMatches.Name" xml:space="preserve">
+    <value>dgRangsMatches</value>
+  </data>
+  <data name="btnExit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1083, 30</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="btnRefreshMatches.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 34</value>
+  </data>
+  <data name="printPreviewDialog.AutoScrollMargin" type="System.Drawing.Size, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="lbPl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 17</value>
+  </data>
+  <data name="&gt;&gt;printPreviewDialog.Name" xml:space="preserve">
+    <value>printPreviewDialog</value>
+  </data>
+  <data name="tbPlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 27</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnSettings.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;bindSourcePlayers.Name" xml:space="preserve">
+    <value>bindSourcePlayers</value>
+  </data>
+  <data name="btnRangPlayers.Text" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="tb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>88, 113</value>
+  </data>
+  <data name="&gt;&gt;btnRangPlayersPrint.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;cmPlayersFav.Name" xml:space="preserve">
+    <value>cmPlayersFav</value>
+  </data>
+  <data name="lbFav.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;btnSettings.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnRangPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSettings.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btnPrintMatches.Text" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="&gt;&gt;lbMatches.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbSelectedTeam.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;btnRangPlayersPrint.Name" xml:space="preserve">
+    <value>btnRangPlayersPrint</value>
+  </data>
+  <data name="&gt;&gt;btnSettings.Name" xml:space="preserve">
+    <value>btnSettings</value>
+  </data>
+  <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 27</value>
+  </data>
+  <data name="btnRefreshMatches.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;bindSourceMatches.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMatches.Name" xml:space="preserve">
+    <value>lbMatches</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;btnExit.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="cmItemToFavorites.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 22</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="flAllPlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>505, 377</value>
+  </data>
+  <data name="lbSelectedTeam.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 20</value>
+  </data>
+  <data name="tbPlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1112, 537</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;lbPlayers.Name" xml:space="preserve">
+    <value>lbPlayers</value>
+  </data>
+  <data name="&gt;&gt;btnPrintMatches.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="printPreviewDialog.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAICAQAAAAAADoAgAAZgAAABAQEAAAAAAAKAEAAE4DAAAgIAAAAQAIAKgIAAB2BAAAEBAAAAEA
@@ -324,10 +437,601 @@
         wf+0BQAAgAUAAIAFAACAAQAAgAHB/4ABAACAAQAAgAEAALwBAAC8AQAAvAHB/4ABbP///5H/
 </value>
   </data>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>154</value>
+  <data name="&gt;&gt;tbPlayers.Parent" xml:space="preserve">
+    <value>tb</value>
+  </data>
+  <data name="&gt;&gt;lbPlayers.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnRefreshMatches.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;backgroundWorkerInit.Name" xml:space="preserve">
+    <value>backgroundWorkerInit</value>
+  </data>
+  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1112, 537</value>
+  </data>
+  <data name="&gt;&gt;flFavoritePlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;moveToolStripMenuItem.Name" xml:space="preserve">
+    <value>moveToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;dgRangPlayers.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="&gt;&gt;printDocumentPlayers.Type" xml:space="preserve">
+    <value>System.Drawing.Printing.PrintDocument, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tbPlayers.Text" xml:space="preserve">
+    <value>Players</value>
+  </data>
+  <data name="&gt;&gt;btnRefreshMatches.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="btnRangPlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 42</value>
+  </data>
+  <data name="btnRangPlayers.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="flFavoritePlayers.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;btnRefreshMatches.Name" xml:space="preserve">
+    <value>btnRefreshMatches</value>
+  </data>
+  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 27</value>
+  </data>
+  <data name="&gt;&gt;lbPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmPlayersAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="printPreviewDialog.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;flFavoritePlayers.Name" xml:space="preserve">
+    <value>flFavoritePlayers</value>
+  </data>
+  <data name="dgRangsMatches.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 349</value>
+  </data>
+  <data name="lbPl.Text" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="lbMatches.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="btnExit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;lbPl.Name" xml:space="preserve">
+    <value>lbPl</value>
+  </data>
+  <data name="&gt;&gt;lbMatches.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lbSelectedTeam.Location" type="System.Drawing.Point, System.Drawing">
+    <value>527, 26</value>
+  </data>
+  <data name="&gt;&gt;btnRangPlayers.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;btnRangPlayers.Name" xml:space="preserve">
+    <value>btnRangPlayers</value>
+  </data>
+  <data name="removeAllToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove All</value>
+  </data>
+  <data name="lbPlayers.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="btnPrintMatches.Location" type="System.Drawing.Point, System.Drawing">
+    <value>962, 383</value>
+  </data>
+  <data name="lbFav.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lbSelectedTeam.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbPl.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="ucTeamSelect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>405, 30</value>
+  </data>
+  <data name="btnPrintMatches.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tbPlayers.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="btnRangPlayersPrint.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="removeAllToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>196, 22</value>
+  </data>
+  <data name="btnRefreshMatches.Text" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="&gt;&gt;btnSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindSourceMatches.Name" xml:space="preserve">
+    <value>bindSourceMatches</value>
+  </data>
+  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="btnRangPlayers.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="&gt;&gt;ucTeamSelect.Name" xml:space="preserve">
+    <value>ucTeamSelect</value>
+  </data>
+  <data name="lbFav.Text" xml:space="preserve">
+    <value>Favorite Players</value>
+  </data>
+  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1112, 537</value>
+  </data>
+  <data name="lbPl.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;flAllPlayers.Name" xml:space="preserve">
+    <value>flAllPlayers</value>
+  </data>
+  <data name="&gt;&gt;backgroundWorkerSaveFavoritePlayers.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnPrintMatches.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;cmPlayersFav.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbPlayers.Text" xml:space="preserve">
+    <value>Players:</value>
+  </data>
+  <data name="flAllPlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>586, 83</value>
+  </data>
+  <data name="&gt;&gt;flFavoritePlayers.Parent" xml:space="preserve">
+    <value>tbPlayers</value>
+  </data>
+  <data name="&gt;&gt;dgRangsMatches.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btnRangPlayersPrint.Location" type="System.Drawing.Point, System.Drawing">
+    <value>951, 383</value>
+  </data>
+  <data name="&gt;&gt;tbPlayers.Name" xml:space="preserve">
+    <value>tbPlayers</value>
+  </data>
+  <data name="lbPl.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="moveToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove from Favorites</value>
+  </data>
+  <data name="moveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>196, 22</value>
+  </data>
+  <data name="&gt;&gt;lbMatches.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="btnExit.Text" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="&gt;&gt;removeAllToolStripMenuItem1.Name" xml:space="preserve">
+    <value>removeAllToolStripMenuItem1</value>
+  </data>
+  <data name="cmItemToFavorites.Text" xml:space="preserve">
+    <value>Move to favorites</value>
+  </data>
+  <data name="lbMatches.Text" xml:space="preserve">
+    <value>Matches:</value>
+  </data>
+  <data name="&gt;&gt;lbPl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmItemToFavorites.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tb.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="dgRangPlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>176, 116</value>
+  </data>
+  <data name="btnRangPlayersPrint.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;lbSelectedTeam.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgRangsMatches.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ucTeamSelect.Type" xml:space="preserve">
+    <value>WINForms.Controls.TeamSelect, WINForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="lbFav.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 17</value>
+  </data>
+  <data name="&gt;&gt;btnPrintMatches.Name" xml:space="preserve">
+    <value>btnPrintMatches</value>
+  </data>
+  <data name="lbPlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 26</value>
+  </data>
+  <data name="&gt;&gt;lbFav.Parent" xml:space="preserve">
+    <value>tbPlayers</value>
+  </data>
+  <data name="&gt;&gt;printPreviewDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PrintPreviewDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnRangPlayersPrint.Text" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="&gt;&gt;lbPl.Parent" xml:space="preserve">
+    <value>tbPlayers</value>
+  </data>
+  <data name="flAllPlayers.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btnRefreshMatches.Location" type="System.Drawing.Point, System.Drawing">
+    <value>965, 127</value>
+  </data>
+  <data name="&gt;&gt;btnExit.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="flFavoritePlayers.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="flFavoritePlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 83</value>
+  </data>
+  <data name="&gt;&gt;btnExit.Name" xml:space="preserve">
+    <value>btnExit</value>
+  </data>
+  <data name="&gt;&gt;tb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbPlayers.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lbPl.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="&gt;&gt;moveToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbFav.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="removeAllToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 22</value>
+  </data>
+  <data name="&gt;&gt;btnPrintMatches.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;printDocumentPlayers.Name" xml:space="preserve">
+    <value>printDocumentPlayers</value>
+  </data>
+  <data name="dgRangPlayers.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;dgRangPlayers.Name" xml:space="preserve">
+    <value>dgRangPlayers</value>
+  </data>
+  <data name="&gt;&gt;cmPlayersAll.Name" xml:space="preserve">
+    <value>cmPlayersAll</value>
+  </data>
+  <data name="&gt;&gt;flAllPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbFav.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 47</value>
+  </data>
+  <data name="&gt;&gt;btnRangPlayersPrint.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbPl.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;printDocumentMatches.Name" xml:space="preserve">
+    <value>printDocumentMatches</value>
+  </data>
+  <data name="lbFav.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="btnExit.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="cmPlayersFav.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 48</value>
+  </data>
+  <data name="&gt;&gt;btnRangPlayersPrint.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="printPreviewDialog.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;backgroundWorkerInit.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ucTeamSelect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>738, 57</value>
+  </data>
+  <data name="&gt;&gt;flAllPlayers.Parent" xml:space="preserve">
+    <value>tbPlayers</value>
+  </data>
+  <data name="lbMatches.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 24</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
+    <value>tb</value>
+  </data>
+  <data name="dgRangPlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>705, 345</value>
+  </data>
+  <data name="btnExit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 23</value>
+  </data>
+  <data name="removeAllToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Remove All</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnRefreshMatches.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>Rang list - Matches</value>
+  </data>
+  <data name="&gt;&gt;removeAllToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnPrintMatches.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 34</value>
+  </data>
+  <data name="&gt;&gt;tb.Name" xml:space="preserve">
+    <value>tb</value>
+  </data>
+  <data name="&gt;&gt;dgRangPlayers.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;tb.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="btnRangPlayersPrint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 39</value>
+  </data>
+  <data name="flAllPlayers.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tabPage2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="lbSelectedTeam.Text" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="&gt;&gt;lbFav.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;btnRangPlayers.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;lbSelectedTeam.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btnSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1043, 59</value>
+  </data>
+  <data name="&gt;&gt;lbPlayers.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="lbPlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 53</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;btnExit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgRangsMatches.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="lbMatches.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 26</value>
+  </data>
+  <data name="&gt;&gt;ucTeamSelect.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;backgroundWorkerGetPlayersByCode.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbMatches.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="dgRangsMatches.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 68</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>Rang list - Players</value>
+  </data>
+  <data name="tbPlayers.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1321, 738</value>
+  </data>
+  <data name="ucTeamSelect.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lbSelectedTeam.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 12pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;lbSelectedTeam.Name" xml:space="preserve">
+    <value>lbSelectedTeam</value>
+  </data>
+  <data name="&gt;&gt;dgRangPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flFavoritePlayers.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;backgroundWorkerSaveFavoriteTeam.Name" xml:space="preserve">
+    <value>backgroundWorkerSaveFavoriteTeam</value>
+  </data>
+  <data name="&gt;&gt;cmItemToFavorites.Name" xml:space="preserve">
+    <value>cmItemToFavorites</value>
+  </data>
+  <data name="&gt;&gt;removeAllToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;backgroundWorkerGetPlayersByCode.Name" xml:space="preserve">
+    <value>backgroundWorkerGetPlayersByCode</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
+    <value>tb</value>
+  </data>
+  <data name="dgRangsMatches.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lbPl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>837, 47</value>
+  </data>
+  <data name="printPreviewDialog.Enabled" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;lbFav.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbPlayers.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="btnRangPlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>951, 131</value>
+  </data>
+  <data name="&gt;&gt;removeAllToolStripMenuItem.Name" xml:space="preserve">
+    <value>removeAllToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;flAllPlayers.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;lbFav.Name" xml:space="preserve">
+    <value>lbFav</value>
+  </data>
+  <data name="flFavoritePlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>509, 377</value>
+  </data>
+  <data name="&gt;&gt;lbSelectedTeam.Parent" xml:space="preserve">
+    <value>tbPlayers</value>
+  </data>
+  <data name="lbMatches.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 16pt</value>
+  </data>
+  <data name="ucTeamSelect.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="cmPlayersAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 48</value>
+  </data>
+  <data name="tb.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;backgroundWorkerSaveFavoriteTeam.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbSelectedTeam.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="tb.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 11pt</value>
+  </data>
+  <data name="&gt;&gt;bindSourcePlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ucTeamSelect.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <metadata name="bindSourceMatches.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 94</value>
   </metadata>
   <metadata name="$this.TrayLargeIcon" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="printPreviewDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>480, 94</value>
+  </metadata>
+  <metadata name="backgroundWorkerSaveFavoritePlayers.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 10</value>
+  </metadata>
+  <metadata name="backgroundWorkerInit.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>455, 16</value>
+  </metadata>
+  <metadata name="cmPlayersAll.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>703, 17</value>
+  </metadata>
+  <metadata name="bindSourcePlayers.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1275, 13</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>206</value>
+  </metadata>
+  <metadata name="printDocumentPlayers.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>160, 94</value>
+  </metadata>
+  <metadata name="cmPlayersFav.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1167, 13</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>hr</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="printDocumentMatches.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>334, 90</value>
+  </metadata>
+  <metadata name="backgroundWorkerSaveFavoriteTeam.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>229, 20</value>
+  </metadata>
+  <metadata name="backgroundWorkerGetPlayersByCode.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>641, 21</value>
   </metadata>
 </root>

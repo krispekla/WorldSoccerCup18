@@ -29,6 +29,7 @@ namespace WPF
     {
         static List<Team> _listTeams;
         static List<Team> _listTeamsOpponents;
+        static List<Player> _playersWithImages;
         static List<PlayerStatistic> _favoriteListPlayers;
         static List<PlayerStatistic> _opponentListPlayers;
         static string _favoriteTactic = "";
@@ -52,14 +53,16 @@ namespace WPF
 
         }
 
+        //Load all teams
         private async void LoadTeams()
         {
             var teamsList = await Task.Run(() => Repository.GetTeams().Result);
             _listTeams = (List<Team>)teamsList;
-            LoadFavorite();
+            LoadFavoriteTeam();
         }
 
-        private async void LoadFavorite()
+        //Load favorite team from file if exists
+        private async void LoadFavoriteTeam()
         {
             string favoriteTeam = await Task.Run(() => FileRepository.GetFavoriteTeam());
 
@@ -91,7 +94,8 @@ namespace WPF
             _listTeamsOpponents.Clear();
             try
             {
-                _matchList = await Task.Run(() => Repository.GetMatchForSelectedTeam(_favoriteTeam.Fifa_code));
+                string code = _favoriteTeam.Fifa_code;
+                _matchList = await Task.Run(() => Repository.GetMatchForSelectedTeam(code));
             }
             catch (Exception e)
             {
@@ -111,9 +115,58 @@ namespace WPF
         {
             ClearGrids();
 
+            LoadImagesIntoPlayersAsync();
 
+            _favoriteListPlayers = PrepareListPlayersPositionOrder(_favoriteListPlayers);
+            _opponentListPlayers = PrepareListPlayersPositionOrder(_opponentListPlayers);
             CreateGrid(_favoriteTactic, _favoriteListPlayers, true);
             CreateGrid(_opponentTactic, _opponentListPlayers, false);
+        }
+
+        private async void LoadImagesIntoPlayersAsync()
+        {
+                List<PlayerStatistic> favTempPlayers = await Task.Run(() => Repository.SetPlayersImages(_favoriteListPlayers));
+                List<PlayerStatistic> oppTempPlayers = await Task.Run(() => Repository.SetPlayersImages(_opponentListPlayers));
+            _favoriteListPlayers= favTempPlayers;
+            _opponentListPlayers = oppTempPlayers;
+        }
+
+        private List<PlayerStatistic> PrepareListPlayersPositionOrder(List<PlayerStatistic> currentPlayers)
+        {
+            List<PlayerStatistic> temp = new List<PlayerStatistic>();
+            
+            PlayerStatistic goalkeeper = new PlayerStatistic();
+            List<PlayerStatistic> def = new List<PlayerStatistic>();
+            List<PlayerStatistic> mid = new List<PlayerStatistic>();
+            List<PlayerStatistic> att = new List<PlayerStatistic>();
+
+            for (int i = 0; i < currentPlayers.Count(); i++)
+            {
+                switch (currentPlayers[i].Position)
+                {
+                    case "Defender":
+                        def.Add(currentPlayers[i]);
+                        break;
+                    case "Midfield":
+                        mid.Add(currentPlayers[i]);
+                        break;
+                    case "Forward":
+                        att.Add(currentPlayers[i]);
+                        break;
+                    case "Goalie":
+                        goalkeeper = currentPlayers[i];
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            temp.Add(goalkeeper);
+            temp.AddRange(def);
+            temp.AddRange(mid);
+            temp.AddRange(att);
+
+            return temp;
         }
 
         private void ClearGrids()
@@ -126,6 +179,8 @@ namespace WPF
 
         private void CreateGrid(string favoriteTactic, List<PlayerStatistic> plyList, bool favorite)
         {
+            if (string.IsNullOrEmpty(favoriteTactic)) return;
+
             string[] tmp = favoriteTactic.Split('-');
             int numberOfColumns = tmp.Length + 1;
 
@@ -142,13 +197,13 @@ namespace WPF
                 else
                     gridOpponent.ColumnDefinitions.Add(cd);
             }
-            if (!favorite)
-                gridOpponent.ColumnDefinitions.Add(new ColumnDefinition());
+   
+
             //Filling goalKeeper
             if (favorite)
                 gridFavorite.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, 0));
             else
-                gridOpponent.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, numberOfColumns + 1));
+                gridOpponent.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, numberOfColumns -1));
 
 
             int indexPlayers = 1;
@@ -156,13 +211,17 @@ namespace WPF
             {
                 int colIndex = i + 1;
                 if (!favorite)
-                    colIndex = (numberOfColumns - 1) - i;
+                    colIndex = (numberOfColumns - 2) - i;
 
                 StackPanel sp = new StackPanel();
+
                 sp = FillGridWithPlayerCards(plyList, indexPlayers, indexPlayers + int.Parse(tmp[i]), colIndex);
-                gridFavorite.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, 0));
                 if (favorite)
+                {
+                gridFavorite.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, 0));
                     gridFavorite.Children.Add(sp);
+
+                }
                 else
                     gridOpponent.Children.Add(sp);
 
@@ -181,11 +240,11 @@ namespace WPF
                 sp.Children.Add(pgc);
             }
 
-            sp.MinWidth = 100;
-            sp.MinHeight = 100;
+            sp.MinWidth = 80;
+            sp.MinHeight = 80;
             sp.Orientation = Orientation.Vertical;
             sp.VerticalAlignment = VerticalAlignment.Center;
-            sp.HorizontalAlignment = HorizontalAlignment.Center;
+            sp.HorizontalAlignment = HorizontalAlignment.Stretch;
             sp.Margin = new Thickness(5);
 
             Grid.SetColumn(sp, collNumber);
@@ -195,6 +254,8 @@ namespace WPF
         private void SetPlayersForCurrentMatch()
         {
             int index = cbOpponent.SelectedIndex;
+            if (index == -1) return;
+
             _currentMatch = _matchList[index];
 
             if (_matchList[index].Home_team_country == _favoriteTeam.Country)
@@ -241,7 +302,7 @@ namespace WPF
         private void SetCulture(string language)
         {
             if (language == "English")
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-GB");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             else if (language == "Hrvatski")
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo("hr-HR");
         }
@@ -290,6 +351,21 @@ namespace WPF
         {
             SetPlayersForCurrentMatch();
             SetGrids();
+        }
+
+        private void FaSettings_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var startWindow = new SettingsWindow(false, this);
+            startWindow.Show();
+        }
+
+        private void WinMain_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                ExitBox exbox = new ExitBox();
+                exbox.ShowDialog();
+            }
         }
     }
 }

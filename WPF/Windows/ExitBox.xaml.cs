@@ -24,16 +24,28 @@ namespace WPF.Windows
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ConfirmClick(object sender, RoutedEventArgs e)
         {
             this.Close();
             base.OnClosed(e);
             Application.Current.Shutdown();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void CancelClick(object sender, RoutedEventArgs e)
         {
             exitBx.Close();
+        }
+
+        private void ExitBx_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ConfirmClick(sender, e);
+            }
+            else if (e.Key == Key.Escape)
+            {
+                CancelClick(sender, e);
+            }
         }
     }
 }

@@ -14,6 +14,9 @@ namespace DAL
 {
     public class Repository
     {
+        /*https://worldcup.sfg.io/ 
+          https://world-cup-json-2018.herokuapp.com/
+             */
         private const string urlBase = "https://worldcup.sfg.io/";
         private const string urlTeams = urlBase + "teams/results";
         private const string urlPlayers = urlBase + "matches/country?fifa_code=";
@@ -22,10 +25,6 @@ namespace DAL
         private static List<PlayerStatistic> _playersStatistic = new List<PlayerStatistic>();
         static Repository() { }
 
-        public static bool LanguageIsSet()
-        {
-            return FileRepository.CheckLanguage();
-        }
 
         public static void WriteLanguagePreference(string lang)
         {
@@ -180,6 +179,28 @@ namespace DAL
         }
 
         private static List<Player> SetPlayersImages(List<Player> loadedPlayers)
+        {
+
+            string[] playerImages = FileRepository.LoadPlayersImages();
+
+            if (playerImages == null) return loadedPlayers;
+
+            foreach (string item in playerImages)
+            {
+                int pos = item.LastIndexOf('\\');
+                int pos2 = item.LastIndexOf('.') - 1;
+                string current = item.Substring(pos + 1, pos2 - pos);
+                int finded = loadedPlayers.FindIndex(dx => dx.Name.Replace(" ", "") == current);
+                if (finded != -1)
+                {
+                    loadedPlayers[finded].Image = item;
+                }
+            }
+
+            return loadedPlayers;
+        }
+
+        public static List<PlayerStatistic> SetPlayersImages(List<PlayerStatistic> loadedPlayers)
         {
 
             string[] playerImages = FileRepository.LoadPlayersImages();
