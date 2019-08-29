@@ -1,10 +1,12 @@
 ﻿using DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DAL
 {
@@ -96,7 +98,6 @@ namespace DAL
                 int newLineIndex = settings.IndexOf("\r\n");
                 if (newLineIndex != -1)
                 {
-
                     string temp = settings.Substring(0, 9);
                     settings = temp + lang + settings.Substring(newLineIndex, (settings.Length - newLineIndex));
                 }
@@ -223,7 +224,16 @@ namespace DAL
 
         public static void ChangePlayerPicture(string inputPath, string destFileName)
         {
-            File.Copy(inputPath, destFileName);
+            if (destFileName != null)
+            {
+                File.Delete(destFileName);
+                File.Copy(inputPath, destFileName);
+            }
+            else
+            {
+                File.Copy(inputPath, destFileName);
+
+            }
         }
     }
 }

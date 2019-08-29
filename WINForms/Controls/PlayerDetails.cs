@@ -18,7 +18,6 @@ namespace WINForms.Controls
         public bool IsSelected { get; set; }
         public Player Player { get; set; }
         public bool ignoreClick = false;
-        private static string resFolder = "";
 
         public delegate void PlayerDetailsClickHandler(object sender, MouseEventArgs e);
         public event PlayerDetailsClickHandler PlayerDetailsClick;
@@ -26,14 +25,8 @@ namespace WINForms.Controls
         public delegate void PlayerDetailsChangePictureClickHandler(object sender, EventArgs e);
         public event PlayerDetailsChangePictureClickHandler PlayerDetailsChangePictureClick;
 
-        public delegate void PlayerDetailsMouseDownHandler(object sender, MouseEventArgs e);
-        public event PlayerDetailsMouseDownHandler PlayerDetailsMouseDown;
-
-        //public delegate void PlayerDetailsMouseMoveHandler(object sender, MouseEventArgs e);
-        //public event PlayerDetailsMouseMoveHandler PlayerDetailsMouseMove;
         public PlayerDetails()
         {
-            resFolder = (Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory.ToString()))) + "\\resources\\");
             Player = new Player();
             IsSelected = false;
             InitializeComponent();
@@ -60,14 +53,22 @@ namespace WINForms.Controls
 
             Favorite = player.Favorite;
 
+            Image img;
             if (String.IsNullOrEmpty(player.Image))
             {
-                //string defaultImage = resFolder + @"players\img\default.jpg";
-                pbPicture.Image = new Bitmap(WINForms.Properties.Resources._default);
+                using (var bmpTemp = new Bitmap(WINForms.Properties.Resources._default))
+                {
+                    img = new Bitmap(bmpTemp);
+                }
+                pbPicture.Image = new Bitmap(img);
             }
             else
             {
-                pbPicture.Image = new Bitmap(player.Image);
+                using (var bmpTemp = new Bitmap(player.Image))
+                {
+                    img = new Bitmap(bmpTemp);
+                }
+                pbPicture.Image = new Bitmap(img);
             }
             Refresh();
         }
@@ -90,18 +91,11 @@ namespace WINForms.Controls
         private void PlayerDetails_MouseClick(object sender, MouseEventArgs e)
         {
             PlayerDetailsClick?.Invoke(sender, e);
-
         }
 
         private void BtnChangePicture_Click(object sender, EventArgs e)
         {
-            
             PlayerDetailsChangePictureClick?.Invoke(Player, e);
-        }
-
-        private void PlayerDetails_MouseDown(object sender, MouseEventArgs e)
-        {
-            PlayerDetailsMouseDown?.Invoke(sender, e);
         }
 
     }

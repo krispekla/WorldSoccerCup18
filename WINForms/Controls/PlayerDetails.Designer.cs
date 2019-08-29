@@ -127,7 +127,6 @@
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Name = "PlayerDetails";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PlayerDetails_MouseClick);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PlayerDetails_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

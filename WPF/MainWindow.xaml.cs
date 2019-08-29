@@ -29,7 +29,6 @@ namespace WPF
     {
         static List<Team> _listTeams;
         static List<Team> _listTeamsOpponents;
-        static List<Player> _playersWithImages;
         static List<PlayerStatistic> _favoriteListPlayers;
         static List<PlayerStatistic> _opponentListPlayers;
         static string _favoriteTactic = "";
@@ -37,6 +36,7 @@ namespace WPF
         static List<Match> _matchList;
         static Match _currentMatch;
         static Team _favoriteTeam;
+        static int _apiCounter;
         public MainWindow(Settings stgs)
         {
             _listTeams = new List<Team>();
@@ -46,6 +46,7 @@ namespace WPF
             _opponentListPlayers = new List<PlayerStatistic>();
             _currentMatch = new Match();
             _matchList = new List<Match>();
+            _apiCounter = 0;
             InitializeComponent();
 
             SetWindowSettings(stgs);
@@ -56,8 +57,29 @@ namespace WPF
         //Load all teams
         private async void LoadTeams()
         {
-            var teamsList = await Task.Run(() => Repository.GetTeams().Result);
-            _listTeams = (List<Team>)teamsList;
+            try
+            {
+                var teamsList = await Task.Run(() => Repository.GetTeams().Result);
+                _listTeams = (List<Team>)teamsList;
+            }
+            catch
+            {
+                _apiCounter++;
+                if (_apiCounter <= 10)
+                {
+                    var teamsList = await Task.Run(() => Repository.GetTeams().Result);
+                    _listTeams = (List<Team>)teamsList;
+                }
+                else
+                {
+                    MessageBoxResult result = MessageBox.Show("Service is currently unavailable, please try later!", "ok",
+                                                   MessageBoxButton.OK,
+                                                   MessageBoxImage.Question);
+                    ExitBox exbox = new ExitBox();
+                    exbox.ShowDialog();
+                }
+            }
+            _apiCounter = 0;
             LoadFavoriteTeam();
         }
 
@@ -85,21 +107,29 @@ namespace WPF
             }
             _favoriteTeam = _listTeams.Find(tm => tm.Country == tmpName);
             cbFavoriteTeam.SelectedItem = _favoriteTeam;
+
+            //if (_favoriteTeam != null)
+            //{
+            //    TeamDetails td = new TeamDetails(_favoriteTeam);
+            //    td.ShowDialog();
+            //}
+
             SetOpponents();
         }
 
         private async void SetOpponents()
         {
-            _matchList.Clear();
-            _listTeamsOpponents.Clear();
+            if (_matchList != null) _matchList.Clear();
+            if (_listTeamsOpponents != null) _listTeamsOpponents.Clear();
+
             try
             {
                 string code = _favoriteTeam.Fifa_code;
                 _matchList = await Task.Run(() => Repository.GetMatchForSelectedTeam(code));
             }
-            catch (Exception e)
+            catch
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show("Please select team");
             }
             FillOpponentsList();
             cbFavoriteTeam.ItemsSource = _listTeams;
@@ -125,16 +155,16 @@ namespace WPF
 
         private async void LoadImagesIntoPlayersAsync()
         {
-                List<PlayerStatistic> favTempPlayers = await Task.Run(() => Repository.SetPlayersImages(_favoriteListPlayers));
-                List<PlayerStatistic> oppTempPlayers = await Task.Run(() => Repository.SetPlayersImages(_opponentListPlayers));
-            _favoriteListPlayers= favTempPlayers;
+            List<PlayerStatistic> favTempPlayers = await Task.Run(() => Repository.SetPlayersImages(_favoriteListPlayers));
+            List<PlayerStatistic> oppTempPlayers = await Task.Run(() => Repository.SetPlayersImages(_opponentListPlayers));
+            _favoriteListPlayers = favTempPlayers;
             _opponentListPlayers = oppTempPlayers;
         }
 
         private List<PlayerStatistic> PrepareListPlayersPositionOrder(List<PlayerStatistic> currentPlayers)
         {
             List<PlayerStatistic> temp = new List<PlayerStatistic>();
-            
+
             PlayerStatistic goalkeeper = new PlayerStatistic();
             List<PlayerStatistic> def = new List<PlayerStatistic>();
             List<PlayerStatistic> mid = new List<PlayerStatistic>();
@@ -197,13 +227,13 @@ namespace WPF
                 else
                     gridOpponent.ColumnDefinitions.Add(cd);
             }
-   
+
 
             //Filling goalKeeper
             if (favorite)
                 gridFavorite.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, 0));
             else
-                gridOpponent.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, numberOfColumns -1));
+                gridOpponent.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, numberOfColumns - 1));
 
 
             int indexPlayers = 1;
@@ -218,7 +248,7 @@ namespace WPF
                 sp = FillGridWithPlayerCards(plyList, indexPlayers, indexPlayers + int.Parse(tmp[i]), colIndex);
                 if (favorite)
                 {
-                gridFavorite.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, 0));
+                    gridFavorite.Children.Add(FillGridWithPlayerCards(plyList, 0, 1, 0));
                     gridFavorite.Children.Add(sp);
 
                 }
@@ -255,6 +285,7 @@ namespace WPF
         {
             int index = cbOpponent.SelectedIndex;
             if (index == -1) return;
+            if (_matchList == null) return;
 
             _currentMatch = _matchList[index];
 
@@ -280,6 +311,9 @@ namespace WPF
         private void FillOpponentsList()
         {
             _listTeamsOpponents.Clear();
+
+            if (_matchList == null) return;
+
             foreach (Match m in _matchList)
             {
                 string current = m.Home_team_country == _favoriteTeam.Country ? m.Away_team_country : m.Home_team_country;
@@ -317,7 +351,13 @@ namespace WPF
             _favoriteTeam = (Team)cbFavoriteTeam.SelectedValue;
 
             if (!String.IsNullOrEmpty(_favoriteTeam.TeamName()))
+            {
                 await Task.Run(() => FileRepository.SaveFavoriteTeam(_favoriteTeam.TeamName()));
+
+                TeamDetails td = new TeamDetails(_favoriteTeam);
+                td.ShowDialog();
+
+            }
 
             SetOpponents();
 

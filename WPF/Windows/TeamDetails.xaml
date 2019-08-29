@@ -45,10 +45,10 @@
                 </WrapPanel>
 
             </StackPanel>
-                <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
-                    <Label Content="{x:Static p:Resources.Draws}" />
-                    <Label x:Name="lbDraws" Content=""/>
-                </WrapPanel>
+            <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
+                <Label Content="{x:Static p:Resources.Draws}" />
+                <Label x:Name="lbDraws" Content=""/>
+            </WrapPanel>
             <WrapPanel Height="100" Margin="20" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                 <WrapPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,5">
@@ -66,7 +66,7 @@
                     <Label x:Name="lbGoalsDifferential" Content=""/>
                 </WrapPanel>
             </WrapPanel>
-            <Button Content="{x:Static p:Resources.Close}" Width="120" Background="red" Foreground="White" Click="Button_Click" Cursor="Hand"/>
+            <Button Content="{x:Static p:Resources.Close}" Background="red" Foreground="White" Click="Button_Click" Cursor="Hand" Height="21" Margin="119,0,120,0"/>
 
         </StackPanel>
 

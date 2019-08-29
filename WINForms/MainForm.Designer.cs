@@ -258,17 +258,13 @@
             // flFavoritePlayers
             // 
             resources.ApplyResources(this.flFavoritePlayers, "flFavoritePlayers");
-            this.flFavoritePlayers.AllowDrop = true;
             this.flFavoritePlayers.BackColor = System.Drawing.Color.WhiteSmoke;
             this.flFavoritePlayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.flFavoritePlayers.Name = "flFavoritePlayers";
-            this.flFavoritePlayers.DragDrop += new System.Windows.Forms.DragEventHandler(this.flFavoritePlayers_DragDrop);
-            this.flFavoritePlayers.DragEnter += new System.Windows.Forms.DragEventHandler(this.flFavoritePlayers_DragEnterIntoFavorite);
             // 
             // flAllPlayers
             // 
             resources.ApplyResources(this.flAllPlayers, "flAllPlayers");
-            this.flAllPlayers.AllowDrop = true;
             this.flAllPlayers.BackColor = System.Drawing.Color.WhiteSmoke;
             this.flAllPlayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.flAllPlayers.Name = "flAllPlayers";
